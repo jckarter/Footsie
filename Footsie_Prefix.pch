@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'Footsie' target in the 'Footsie' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
