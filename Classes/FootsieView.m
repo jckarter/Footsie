@@ -1,112 +1,19 @@
 #import "FootsieView.h"
-
-FootsieColor
-    FCRed    = { 1.0, 0.3, 0.3, 1.0 },
-    FCGreen  = { 0.3, 1.0, 0.3, 1.0 },
-    FCBlue   = { 0.5, 0.5, 1.0, 1.0 },
-    FCYellow = { 1.0, 1.0, 0.2, 1.0 },
-    FCOrange = { 1.0, 0.5, 0.3, 1.0 };
-
-static inline CGFloat _bright(CGFloat f) { CGFloat ff = 1.0 - f; return 1.0 - (ff*ff); }
-
-static void _log_touches(UIView *view, UIEvent *evt)
-{
-    NSMutableString *s = [NSMutableString string];
-    for (UITouch *touch in [evt allTouches]) {
-        [s appendString:[NSString stringWithFormat:@"<%p %d> ", touch, [touch phase]]];
-    }
-
-    NSLog(@"%@\n", s);
-}
+#import "misc.h"
+#include <stdlib.h>
+#include <math.h>
 
 @interface FootsieView ()
 
 - (void)_updateForTouches:(NSSet*)touches;
+- (void)_drawGoalTransition;
+- (BOOL)_goalsReached;
+- (void)_moveRandomGoal;
+- (UIColor*)_backgroundColor;
 
-@end
-
-@implementation FootsieTarget
-
-@synthesize x, y, color, isOn;
-
-- (FootsieTarget*)initWithX:(CGFloat)xx Y:(CGFloat)yy color:(FootsieColor*)cc
-{
-    if (self = [super init]) {
-        x = xx; y = yy; color = cc;
-        isOn = NO;
-    }
-    return self;
-}
-
-+ (FootsieTarget*)targetWithX:(CGFloat)x Y:(CGFloat)y color:(FootsieColor*)color
-{
-    return [[[FootsieTarget alloc] initWithX:x Y:y color:color] autorelease];
-}
-
-- (CGRect)rect
-{
-    return CGRectMake(x - 50, y - 50, 100, 100);
-}
-
-- (CGRect)innerRect
-{
-    return CGRectMake(x - 40, y - 40, 80, 80);
-}
-
-- (void)draw
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    if (isOn) {
-        CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-        CGFloat colors[8] = {
-            _bright(color->r), _bright(color->g), _bright(color->b), 0.75,
-            color->r, color->g, color->b, 0.10
-        };
-        CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, colors, NULL, 2);
-
-        CGContextDrawRadialGradient(context, gradient,
-            CGPointMake(x, y), 40.0, 
-            CGPointMake(x, y), 50.0, 
-            0 // kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation
-        );
-        CGGradientRelease(gradient);
-        CFRelease(rgb);
-
-        CGContextSetRGBFillColor(context, _bright(color->r), _bright(color->g), _bright(color->b), color->a * 0.8);
-        CGContextFillEllipseInRect(context, [self innerRect]);
-    } else {
-        CGContextSetRGBFillColor(context, color->r, color->g, color->b, color->a);
-        CGContextFillEllipseInRect(context, [self innerRect]);
-    }
-}
-
-+ (NSArray*)rowsOfTargets
-{
-    return [NSArray arrayWithObjects:
-        [FootsieTarget targetWithX: 60 Y: 50 color:&FCRed],
-        [FootsieTarget targetWithX:160 Y: 50 color:&FCRed],
-        [FootsieTarget targetWithX:260 Y: 50 color:&FCRed],
-
-        [FootsieTarget targetWithX: 60 Y:145 color:&FCYellow],
-        [FootsieTarget targetWithX:160 Y:145 color:&FCYellow],
-        [FootsieTarget targetWithX:260 Y:145 color:&FCYellow],
-
-        [FootsieTarget targetWithX: 60 Y:240 color:&FCBlue],
-        [FootsieTarget targetWithX:160 Y:240 color:&FCBlue],
-        [FootsieTarget targetWithX:260 Y:240 color:&FCBlue],
-
-        [FootsieTarget targetWithX: 60 Y:335 color:&FCOrange],
-        [FootsieTarget targetWithX:160 Y:335 color:&FCOrange],
-        [FootsieTarget targetWithX:260 Y:335 color:&FCOrange],
-
-        [FootsieTarget targetWithX: 60 Y:430 color:&FCGreen],
-        [FootsieTarget targetWithX:160 Y:430 color:&FCGreen],
-        [FootsieTarget targetWithX:260 Y:430 color:&FCGreen],
-
-        nil
-    ];
-}
+- (void)addGoal:(FootsieTargetView*)t;
+- (void)removeGoal:(FootsieTargetView*)t;
+- (void)moveGoal:(FootsieTargetView*)from to:(FootsieTargetView*)to;
 
 @end
 
@@ -114,35 +21,101 @@ static void _log_touches(UIView *view, UIEvent *evt)
 
 @synthesize targets;
 
+- (void)addGoal:(FootsieTargetView*)t
+{
+    t.isGoal = YES;
+    [goalTargets addObject:t];
+}
+
+- (void)removeGoal:(FootsieTargetView*)t
+{
+    t.isGoal = NO;
+    [goalTargets removeObject:t];
+}
+
+- (UIColor*)_backgroundColor
+{
+    return [UIColor blackColor];
+}
+
+- (void)moveGoal:(FootsieTargetView*)from to:(FootsieTargetView*)to
+{
+    [self removeGoal:from];
+    [self addGoal:to];
+    fromGoal = from; toGoal = to;
+}
+
 - (void)awakeFromNib
 {
-    self.targets = [FootsieTarget rowsOfTargets];
+    NSMutableArray *targets_tmp = [NSMutableArray array];
+    goalTargets = [[NSMutableSet alloc] init];
+
+    for (UIView *subview in [self subviews])
+        if ([subview isKindOfClass:[FootsieTargetView class]]) {
+            [targets_tmp addObject:subview]; 
+            if (subview.tag == 1)
+                [self addGoal:(FootsieTargetView*)subview];
+        }
+    targets = [[NSArray alloc] initWithArray:targets_tmp];
+    fromGoal = toGoal = nil;
+
+    NSLog(@"%d targets", [targets count]);
+    NSLog(@"%d goals", [goalTargets count]);
 }
 
 - (void)dealloc
 {
     [targets release];
+    [goalTargets release];
     [super dealloc];
 }
 
-// XXX multiple mat layouts: columns, rows, random
-- (void)drawRect:(CGRect)rect
+- (void)_drawGoalTransition
 {
-    [targets makeObjectsPerformSelector:@selector(draw)];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGFloat stroke_color[4] = { 1.0, 0.0, 0.0, 1.0 };
+    CGContextSetLineWidth(context, 3.0);
+    CGContextSetStrokeColor(context, stroke_color);
+
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, fromGoal.center.x, fromGoal.center.y);
+    CGContextAddLineToPoint(context, toGoal.center.x, toGoal.center.y);
+
+    CGContextStrokePath(context);
 }
 
 - (void)_updateForTouches:(NSSet*)touches
 {
-    for (FootsieTarget *target in targets) {
-        target.isOn = NO;
+    if ([self _goalsReached])
+        [self _moveRandomGoal];
+
+    for (FootsieTargetView *target in targets) {
+        BOOL isOn = NO;
         for (UITouch *touch in touches) {
             if ([touch phase] == UITouchPhaseEnded || [touch phase] == UITouchPhaseCancelled)
                 continue;
-            if (CGRectContainsPoint([target rect], [touch locationInView:self]))
-                target.isOn = YES;
+            if (CGRectContainsPoint(target.frame, [touch locationInView:self]))
+                isOn = YES;
         }
+        target.isOn = isOn;
     }
-    [self setNeedsDisplay];
+}
+
+- (BOOL)_goalsReached
+{
+    for (FootsieTargetView *target in goalTargets) {
+        if (!target.isOn)
+            return NO;
+    }
+    return YES;
+}
+
+- (void)_moveRandomGoal
+{
+    FootsieTargetView *from = [goalTargets randomObject], *to;
+    do { to = [targets randomObject]; } while (to.isGoal);
+    [self moveGoal:from to:to];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
