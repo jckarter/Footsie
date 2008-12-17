@@ -1,3 +1,4 @@
+#import <AudioToolbox/AudioToolbox.h>
 #import <UIKit/UIKit.h>
 #import "FootsieTargetView.h"
 
@@ -6,9 +7,10 @@
     NSArray *targets;
     NSMutableSet *goalTargets;
     FootsieTargetView *fromGoal, *toGoal;
-    BOOL isPlaying;
+    BOOL isCelebrating;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
+    SystemSoundID bootSound, goalSound;
 }
 
 @property(nonatomic, retain) NSArray *targets;

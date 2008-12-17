@@ -18,4 +18,6 @@ typedef enum FootsieSex { Female, Male } FootsieSex;
 @property FootsieSex sex;
 @property BOOL isOn, isGoal;
 
+- (CGRect)touchRegion;
+
 @end

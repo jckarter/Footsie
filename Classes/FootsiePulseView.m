@@ -1,7 +1,7 @@
 #import "FootsiePulseView.h"
 
 static const CGFloat PULSE_NATIVE_RADIUS = 40.0;
-static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 7.0;
+static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 5.0;
 
 static CGAffineTransform _in_transform, _out_transform;
 
@@ -15,7 +15,7 @@ static void _pulse_in(UIView *v)  { v.transform = _in_transform;  v.alpha = 1.0;
 + (void)initialize
 {
     _in_transform = CGAffineTransformMakeScale(0.5, 0.5);
-    _out_transform = CGAffineTransformMakeScale(3.0, 3.0);
+    _out_transform = CGAffineTransformMakeScale(5.0, 5.0);
 }
 
 - (FootsiePulseView*)initWithCenter:(CGPoint)point color:(UIColor*)co direction:(FootsiePulseViewDirection)dir

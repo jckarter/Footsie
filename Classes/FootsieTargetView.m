@@ -207,5 +207,14 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     CGContextRestoreGState(context);
 }
 
+- (CGRect)touchRegion
+{
+    CGRect frame = self.frame;
+    if (isGoal && isOn)
+        return CGRectInset(frame, -5.0, -5.0);
+    else
+        return frame;
+}
+
 @end
 

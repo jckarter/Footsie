@@ -164,7 +164,7 @@
 						<int key="IBUITag">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 					</object>
-					<object class="IBUIImageView" id="951224609">
+					<object class="IBUIImageView" id="806729759">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{320, 480}</string>
@@ -183,7 +183,7 @@
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MAA</bytes>
+					<bytes key="NSWhite">MC4xNTAwMDAwMQA</bytes>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -204,7 +204,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">splashView</string>
 						<reference key="source" ref="774585933"/>
-						<reference key="destination" ref="951224609"/>
+						<reference key="destination" ref="806729759"/>
 					</object>
 					<int key="connectionID">43</int>
 				</object>
@@ -251,7 +251,7 @@
 							<reference ref="640462988"/>
 							<reference ref="331294928"/>
 							<reference ref="815799500"/>
-							<reference ref="951224609"/>
+							<reference ref="806729759"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -332,7 +332,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
-						<reference key="object" ref="951224609"/>
+						<reference key="object" ref="806729759"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
 				</object>
