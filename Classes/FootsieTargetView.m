@@ -5,18 +5,26 @@ static NSArray *targetColors;
 
 static void _happy_face(CGContextRef context)
 {
+    CGFloat leftEyeRadius  = _rand_between(7.0, 9.0);
+    CGFloat rightEyeRadius = _rand_between(7.0, 9.0);
+
     CGContextBeginPath(context);
-    CGContextAddArc(context, -25.0, 0.0, 10.0, M_PI, 2*M_PI, 0);
-    CGContextMoveToPoint(context, 15.0, 0.0);
-    CGContextAddArc(context,  25.0, 0.0, 10.0, M_PI, 2*M_PI, 0);
+    CGContextAddArc(context, -17.0 - leftEyeRadius,  0.0, leftEyeRadius, M_PI, 2*M_PI, 0);
+    CGContextMoveToPoint(context, 17.0, 0.0);
+    CGContextAddArc(context,  17.0 + rightEyeRadius, 0.0, rightEyeRadius, M_PI, 2*M_PI, 0);
+
+    CGContextMoveToPoint   (context, -34.0, -5.0 - leftEyeRadius);
+    CGContextAddLineToPoint(context, -28.0, -7.0 - leftEyeRadius);
+    CGContextMoveToPoint   (context,  34.0, -5.0 - rightEyeRadius);
+    CGContextAddLineToPoint(context,  28.0, -7.0 - rightEyeRadius);
 }
 
 static void _asleep_face(CGContextRef context)
 {
     CGContextBeginPath(context);
-    CGContextAddArc(context, -28.0, 0.0, 7.0, 0.25*M_PI, 0.75*M_PI, 0);
+    CGContextAddArc(context, -28.0, _epsilon(0.0, 1.0), 7.0, 0.25*M_PI, 0.75*M_PI, 0);
     CGContextMoveToPoint(context, 28.0 + 7.0*0.7071, 0.0 + 7.0*0.7071);
-    CGContextAddArc(context,  28.0, 0.0, 7.0, 0.25*M_PI, 0.75*M_PI, 0);
+    CGContextAddArc(context,  28.0, _epsilon(0.0, 1.0), 7.0, 0.25*M_PI, 0.75*M_PI, 0);
 }
 
 static void _angry_face(CGContextRef context)
@@ -27,10 +35,10 @@ static void _angry_face(CGContextRef context)
     CGContextMoveToPoint   (context, _epsilon( 15.0, 0.5), _epsilon(  5.0, 0.5));
     CGContextAddLineToPoint(context, _epsilon( 35.0, 2.0), _epsilon(-15.0, 2.0));
 
-    CGFloat leftEyeRadius  = _rand_between(1.5, 3.0);
-    CGFloat rightEyeRadius = _rand_between(1.5, 3.0);
-    CGContextAddEllipseInRect(context, CGRectMake(-23.0-leftEyeRadius, -leftEyeRadius,  leftEyeRadius *2, leftEyeRadius *2));
-    CGContextAddEllipseInRect(context, CGRectMake( 23.0,               -rightEyeRadius, rightEyeRadius*2, rightEyeRadius*2));
+    CGFloat leftEyeRadius  = _rand_between(1.0, 5.0);
+    CGFloat rightEyeRadius = _rand_between(1.0, 5.0);
+    CGContextAddEllipseInRect(context, CGRectMake(-27.0-leftEyeRadius, -leftEyeRadius,  leftEyeRadius *2, leftEyeRadius *2));
+    CGContextAddEllipseInRect(context, CGRectMake( 27.0,               -rightEyeRadius, rightEyeRadius*2, rightEyeRadius*2));
 }
 
 static void _round_shape(CGContextRef context)
@@ -46,6 +54,15 @@ static unsigned _num_shapes = sizeof(_shapes)/sizeof(_shapes[0]);
 
 static inline FootsieSex _random_sex(void) { return rand() & 0x40000000 ? Female : Male; }
 static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_shapes]; }
+
+@interface FootsieTargetView ()
+
+- (void)_startGoalTimer;
+- (void)_stopGoalTimer;
+- (void)_checkGoalTimer;
+- (void)_goalTimerTick:(NSTimer*)timer;
+
+@end
 
 @implementation FootsieTargetView
 
@@ -69,6 +86,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
         self.color = [targetColors randomObject];
         isOn = NO; isGoal = NO;
         shape = _random_shape(); sex = _random_sex();
+        redrawTimer = nil;
     }
     return self;
 }
@@ -78,6 +96,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     if (isOn != x) {
         isOn = x;
         [self setNeedsDisplay];
+        [self _checkGoalTimer];
     }
 }
 
@@ -86,11 +105,45 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     if (isGoal != x) {
         isGoal = x;
         [self setNeedsDisplay];
+        [self _checkGoalTimer];
     }
+}
+
+- (void)_goalTimerTick:(NSTimer*)timer
+{
+    [self setNeedsDisplay];
+}
+
+- (void)_checkGoalTimer
+{
+    if (!redrawTimer && isGoal && !isOn)
+        [self _startGoalTimer];
+    else if (redrawTimer)
+        [self _stopGoalTimer];
+}
+
+- (void)_startGoalTimer
+{
+    redrawTimer = [[NSTimer
+        scheduledTimerWithTimeInterval:0.1
+        target:self
+        selector:@selector(_goalTimerTick:)
+        userInfo:nil
+        repeats:YES
+    ] retain];
+}
+
+- (void)_stopGoalTimer
+{
+    [redrawTimer invalidate];
+    [redrawTimer release];
+    redrawTimer = nil;
 }
 
 - (void)dealloc
 {
+    [redrawTimer invalidate];
+    [redrawTimer release];
     [color release];
     [super dealloc];
 }
@@ -101,6 +154,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
 
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGContextRotateCTM(context, -0.5*M_PI);
 
     if (isGoal && isOn) {
         CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
@@ -115,7 +169,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
         );
 
         CGContextDrawRadialGradient(context, gradient,
-            CGPointZero, 30.0, 
+            CGPointZero, 35.0, 
             CGPointZero, 50.0, 
             0 // kCGGradientDrawsBeforeStartLocation //| kCGGradientDrawsAfterEndLocation
         );

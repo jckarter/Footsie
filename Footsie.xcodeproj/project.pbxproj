@@ -17,6 +17,8 @@
 		28D7ACF80DDB3853001CB0EB /* FootsieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* FootsieViewController.m */; };
 		D800E8FD0EF7264900EE20B9 /* FootsieTargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = D800E8FC0EF7264900EE20B9 /* FootsieTargetView.m */; };
 		D800E9140EF7356600EE20B9 /* misc.m in Sources */ = {isa = PBXBuildFile; fileRef = D800E9130EF7356600EE20B9 /* misc.m */; };
+		D800EA0C0EF872A600EE20B9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D800EA0B0EF872A600EE20B9 /* Default.png */; };
+		D800EA1D0EF8850800EE20B9 /* FootsiePulseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D800EA1B0EF8850800EE20B9 /* FootsiePulseView.m */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 /* End PBXBuildFile section */
@@ -39,6 +41,9 @@
 		D800E8FC0EF7264900EE20B9 /* FootsieTargetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieTargetView.m; sourceTree = "<group>"; };
 		D800E9050EF7339200EE20B9 /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
 		D800E9130EF7356600EE20B9 /* misc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = misc.m; sourceTree = "<group>"; };
+		D800EA0B0EF872A600EE20B9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		D800EA1B0EF8850800EE20B9 /* FootsiePulseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsiePulseView.m; sourceTree = "<group>"; };
+		D800EA1C0EF8850800EE20B9 /* FootsiePulseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsiePulseView.h; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -69,6 +74,8 @@
 				D85E50000EF34DAA0082E971 /* FootsieView.m */,
 				D800E8FB0EF7264900EE20B9 /* FootsieTargetView.h */,
 				D800E8FC0EF7264900EE20B9 /* FootsieTargetView.m */,
+				D800EA1B0EF8850800EE20B9 /* FootsiePulseView.m */,
+				D800EA1C0EF8850800EE20B9 /* FootsiePulseView.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -107,6 +114,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D800EA0B0EF872A600EE20B9 /* Default.png */,
 				D85E4FEE0EF3403A0082E971 /* Footsie.png */,
 				2899E5210DE3E06400AC0155 /* FootsieViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -170,6 +178,7 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* FootsieViewController.xib in Resources */,
 				D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */,
+				D800EA0C0EF872A600EE20B9 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +195,7 @@
 				D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */,
 				D800E8FD0EF7264900EE20B9 /* FootsieTargetView.m in Sources */,
 				D800E9140EF7356600EE20B9 /* misc.m in Sources */,
+				D800EA1D0EF8850800EE20B9 /* FootsiePulseView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

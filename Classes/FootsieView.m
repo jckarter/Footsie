@@ -1,4 +1,5 @@
 #import "FootsieView.h"
+#import "FootsiePulseView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -6,10 +7,16 @@
 @interface FootsieView ()
 
 - (void)_updateForTouches:(NSSet*)touches;
-- (void)_drawGoalTransition;
 - (BOOL)_goalsReached;
 - (void)_moveRandomGoal;
 - (UIColor*)_backgroundColor;
+
+- (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction;
+
+- (void)_pulseTimerTick:(NSTimer*)timer;
+- (void)_pulseAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
+
+- (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
 
 - (void)addGoal:(FootsieTargetView*)t;
 - (void)removeGoal:(FootsieTargetView*)t;
@@ -20,6 +27,61 @@
 @implementation FootsieView
 
 @synthesize targets;
+
+- (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction
+{
+    FootsiePulseView *pulse = [[FootsiePulseView alloc]
+        initWithCenter:CGPointMake(CGRectGetMidX(view.frame), CGRectGetMidY(view.frame))
+        color:color
+        direction:direction
+    ];
+
+    [self addSubview:pulse];
+    [self sendSubviewToBack:pulse];
+    
+    return [pulse autorelease];
+}
+
+- (void)_pulseTimerTick:(NSTimer*)timer
+{
+    NSMutableArray *pulses = [[NSMutableArray alloc] init];
+
+    if (fromGoal && toGoal) {
+        [pulses addObject:[self _pulseFromView:fromGoal color:fromGoal.color direction:PulseOut]];
+        [pulses addObject:[self _pulseFromView:toGoal color:[UIColor redColor] direction:PulseIn]];
+    } else {
+        for (FootsieTargetView *goal in goalTargets)
+            [pulses addObject:[self _pulseFromView:goal
+                color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.6]
+                direction:PulseIn
+            ]];
+    }
+
+    [UIView beginAnimations:nil context:pulses];
+
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(_pulseAnimationDidStop:finished:context:)];
+    for (FootsiePulseView *pulse in pulses)
+        [pulse pulseAnimation];
+
+    [UIView commitAnimations];
+}
+
+- (void)_pulseAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
+{
+    NSArray *pulses = (NSArray*)context;
+
+    for (UIView *pulse in pulses) {
+        [pulse removeFromSuperview];
+    }
+    [pulses release];
+}
+
+- (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
+{
+    [splashView release];
+}
 
 - (void)addGoal:(FootsieTargetView*)t
 {
@@ -59,30 +121,32 @@
     targets = [[NSArray alloc] initWithArray:targets_tmp];
     fromGoal = toGoal = nil;
 
-    NSLog(@"%d targets", [targets count]);
-    NSLog(@"%d goals", [goalTargets count]);
+    pulseTimer = [[NSTimer
+        scheduledTimerWithTimeInterval:0.4
+        target:self
+        selector:@selector(_pulseTimerTick:)
+        userInfo:nil
+        repeats:YES
+    ] retain];
+
+    [UIView beginAnimations:nil context:nil];
+
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(_splashViewFadeOutDidStop:finished:context:)];
+
+    splashView.alpha = 0.0;
+
+    [UIView commitAnimations];
 }
 
 - (void)dealloc
 {
+    [pulseTimer invalidate];
+    [pulseTimer release];
     [targets release];
     [goalTargets release];
     [super dealloc];
-}
-
-- (void)_drawGoalTransition
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGFloat stroke_color[4] = { 1.0, 0.0, 0.0, 1.0 };
-    CGContextSetLineWidth(context, 3.0);
-    CGContextSetStrokeColor(context, stroke_color);
-
-    CGContextBeginPath(context);
-    CGContextMoveToPoint(context, fromGoal.center.x, fromGoal.center.y);
-    CGContextAddLineToPoint(context, toGoal.center.x, toGoal.center.y);
-
-    CGContextStrokePath(context);
 }
 
 - (void)_updateForTouches:(NSSet*)touches
@@ -113,8 +177,9 @@
 
 - (void)_moveRandomGoal
 {
-    FootsieTargetView *from = [goalTargets randomObject], *to;
-    do { to = [targets randomObject]; } while (to.isGoal);
+    FootsieTargetView *from, *to;
+    do { from = [goalTargets randomObject]; } while (from == toGoal);
+    do { to   = [targets randomObject];     } while (to.isGoal);
     [self moveGoal:from to:to];
 }
 

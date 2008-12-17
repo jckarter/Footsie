@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-
 #import "FootsieTargetView.h"
 
 @interface FootsieView : UIView
@@ -8,6 +7,8 @@
     NSMutableSet *goalTargets;
     FootsieTargetView *fromGoal, *toGoal;
     BOOL isPlaying;
+    NSTimer *pulseTimer;
+    IBOutlet UIImageView *splashView;
 }
 
 @property(nonatomic, retain) NSArray *targets;

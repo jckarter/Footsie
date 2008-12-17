@@ -7,6 +7,7 @@ typedef enum FootsieSex { Female, Male } FootsieSex;
 @interface FootsieTargetView : UIView
 {
     UIColor *color;
+    NSTimer *redrawTimer;
     BOOL isOn, isGoal;
     FootsieShape shape;
     FootsieSex sex;
