@@ -50,15 +50,18 @@ static void _dead_face(CGContextRef context)
     CGContextAddEllipseInRect(context, CGRectMake(-39.0, -leftEyeRadius, leftEyeRadius*2, leftEyeRadius*2));
     CGContextAddEllipseInRect(context, CGRectMake( 39.0-rightEyeRadius*2, -rightEyeRadius, rightEyeRadius*2, rightEyeRadius*2));
 
-    CGContextMoveToPoint(context, -36.0, -2.0);
-    CGContextAddLineToPoint(context, -32.0,  2.0);
-    CGContextMoveToPoint(context, -36.0,  2.0);
-    CGContextAddLineToPoint(context, -32.0, -2.0);
+    CGFloat leftEyeCenter  = _rand_between(-34.0, -39.0 + leftEyeRadius);
+    CGFloat rightEyeCenter = _rand_between( 39.0 - rightEyeRadius, 34.0);
 
-    CGContextMoveToPoint(context, 36.0, -2.0);
-    CGContextAddLineToPoint(context, 32.0,  2.0);
-    CGContextMoveToPoint(context, 36.0,  2.0);
-    CGContextAddLineToPoint(context, 32.0, -2.0);
+    CGContextMoveToPoint(context,    leftEyeCenter-2.0,  -2.0);
+    CGContextAddLineToPoint(context, leftEyeCenter+2.0,   2.0);
+    CGContextMoveToPoint(context,    leftEyeCenter-2.0,  2.0);
+    CGContextAddLineToPoint(context, leftEyeCenter+2.0, -2.0);
+
+    CGContextMoveToPoint(context,    rightEyeCenter+2.0, -2.0);
+    CGContextAddLineToPoint(context, rightEyeCenter-2.0,  2.0);
+    CGContextMoveToPoint(context,    rightEyeCenter+2.0,  2.0);
+    CGContextAddLineToPoint(context, rightEyeCenter-2.0, -2.0);
 }
 
 static void _round_shape(CGContextRef context)
