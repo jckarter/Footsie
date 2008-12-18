@@ -45,7 +45,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 @implementation FootsieView
 
-@synthesize targets;
+@synthesize targets, score;
 
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction
 {
@@ -171,6 +171,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Boot", @"wav"), &bootSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Goal", @"aiff"), &goalSound);
+    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Crash", @"aiff"), &endSound);
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
@@ -188,6 +189,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     isPaused = YES;
     isEnded = NO;
     fromGoal = toGoal = nil;
+    score = 0;
     for (FootsieTargetView *target in targets) {
         target.isGoal = NO;
         if (target.tag == 1)
@@ -206,6 +208,8 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_endGame:(FootsieTargetView*)sourceTarget
 {
+    AudioServicesPlayAlertSound(endSound);
+
     isEnded = YES;
 
     [self _flashBackground:[UIColor redColor]];
@@ -219,6 +223,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 {
     AudioServicesDisposeSystemSoundID(bootSound);
     AudioServicesDisposeSystemSoundID(goalSound);
+    AudioServicesDisposeSystemSoundID(endSound);
 
     [pulseTimer invalidate];
     [pulseTimer release];
@@ -272,7 +277,10 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 - (void)_celebrateGoalsReached
 {
     isCelebrating = YES;
-    isPaused = NO;
+    if (isPaused)
+        isPaused = NO;
+    else
+        ++score;
 
     [self _flashBackground:[UIColor whiteColor]];
 

@@ -22,6 +22,7 @@
 		D800EA770EF9976C00EE20B9 /* Boot.wav in Resources */ = {isa = PBXBuildFile; fileRef = D800EA760EF9976C00EE20B9 /* Boot.wav */; };
 		D800EA8B0EF99C7600EE20B9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */; };
 		D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */; };
+		D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EB280EFADC0300EE20B9 /* Crash.aiff */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		D800EA760EF9976C00EE20B9 /* Boot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Boot.wav; sourceTree = "<group>"; };
 		D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Goal.aiff; sourceTree = "<group>"; };
+		D800EB280EFADC0300EE20B9 /* Crash.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Crash.aiff; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				2899E5210DE3E06400AC0155 /* FootsieViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				D800EB280EFADC0300EE20B9 /* Crash.aiff */,
 				D800EA760EF9976C00EE20B9 /* Boot.wav */,
 				D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */,
 			);
@@ -191,6 +194,7 @@
 				D800EA0C0EF872A600EE20B9 /* Default.png in Resources */,
 				D800EA770EF9976C00EE20B9 /* Boot.wav in Resources */,
 				D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */,
+				D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

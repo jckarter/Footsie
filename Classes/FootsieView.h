@@ -10,9 +10,11 @@
     BOOL isCelebrating, isPaused, isEnded;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
-    SystemSoundID bootSound, goalSound;
+    SystemSoundID bootSound, goalSound, endSound;
+    unsigned score;
 }
 
 @property(nonatomic, retain) NSArray *targets;
+@property unsigned score;
 
 @end
