@@ -9,6 +9,7 @@ typedef enum FootsieSex { Female, Male } FootsieSex;
     UIColor *color;
     NSTimer *redrawTimer;
     BOOL isOn, isGoal;
+    unsigned deathPulses;
     FootsieShape shape;
     FootsieSex sex;
 }
@@ -17,7 +18,10 @@ typedef enum FootsieSex { Female, Male } FootsieSex;
 @property FootsieShape shape;
 @property FootsieSex sex;
 @property BOOL isOn, isGoal;
+@property unsigned deathPulses;
 
 - (CGRect)touchRegion;
+
+- (BOOL)isDead;
 
 @end

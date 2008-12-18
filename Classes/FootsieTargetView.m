@@ -2,6 +2,7 @@
 #import "misc.h"
 
 static NSArray *targetColors;
+static const unsigned DEATH_PULSES = 3;
 
 static void _happy_face(CGContextRef context)
 {
@@ -41,6 +42,25 @@ static void _angry_face(CGContextRef context)
     CGContextAddEllipseInRect(context, CGRectMake( 27.0,               -rightEyeRadius, rightEyeRadius*2, rightEyeRadius*2));
 }
 
+static void _dead_face(CGContextRef context)
+{
+    CGFloat leftEyeRadius  = _rand_between(7.0, 19.0);
+    CGFloat rightEyeRadius = _rand_between(7.0, 19.0);
+    CGContextBeginPath(context);
+    CGContextAddEllipseInRect(context, CGRectMake(-39.0, -leftEyeRadius, leftEyeRadius*2, leftEyeRadius*2));
+    CGContextAddEllipseInRect(context, CGRectMake( 39.0-rightEyeRadius*2, -rightEyeRadius, rightEyeRadius*2, rightEyeRadius*2));
+
+    CGContextMoveToPoint(context, -36.0, -2.0);
+    CGContextAddLineToPoint(context, -32.0,  2.0);
+    CGContextMoveToPoint(context, -36.0,  2.0);
+    CGContextAddLineToPoint(context, -32.0, -2.0);
+
+    CGContextMoveToPoint(context, 36.0, -2.0);
+    CGContextAddLineToPoint(context, 32.0,  2.0);
+    CGContextMoveToPoint(context, 36.0,  2.0);
+    CGContextAddLineToPoint(context, 32.0, -2.0);
+}
+
 static void _round_shape(CGContextRef context)
 {
     CGContextBeginPath(context);
@@ -66,7 +86,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
 
 @implementation FootsieTargetView
 
-@synthesize color, isOn, isGoal, shape, sex;
+@synthesize color, isOn, isGoal, deathPulses, shape, sex;
 
 + (void)initialize
 {
@@ -91,10 +111,16 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     return self;
 }
 
+- (BOOL)isDead
+{
+    return deathPulses >= DEATH_PULSES;
+}
+
 - (void)setIsOn:(BOOL)x
 {
     if (isOn != x) {
         isOn = x;
+        deathPulses = 0;
         [self setNeedsDisplay];
         [self _checkGoalTimer];
     }
@@ -109,6 +135,16 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     }
 }
 
+- (void)setDeathPulses:(unsigned)x
+{
+    unsigned old = deathPulses;
+    deathPulses = x;
+    if ((old < DEATH_PULSES) ^ (deathPulses < DEATH_PULSES)) {
+        [self setNeedsDisplay];
+        [self _checkGoalTimer];
+    }
+}
+
 - (void)_goalTimerTick:(NSTimer*)timer
 {
     [self setNeedsDisplay];
@@ -116,7 +152,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
 
 - (void)_checkGoalTimer
 {
-    if (!redrawTimer && isGoal && !isOn)
+    if (!redrawTimer && deathPulses < DEATH_PULSES && isGoal && !isOn)
         [self _startGoalTimer];
     else if (redrawTimer)
         [self _stopGoalTimer];
@@ -179,19 +215,19 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
     
     UIColor *c;
     FootsieFace face;
-    if (isGoal && isOn) {
+    if (deathPulses >= DEATH_PULSES) {
+        c = _dead(color);
+        face = _dead_face;
+    } else if (isGoal && isOn) {
         c = _happy(color);
         face = _happy_face;
-    }
-    else if (isGoal && !isOn) {
+    } else if (isGoal && !isOn) {
         c = _angry(color);
         face = _angry_face;
-    }
-    else if (!isGoal && isOn) {
+    } else if (!isGoal && isOn) {
         c = _half_asleep(color);
         face = _asleep_face;
-    }
-    else {
+    } else {
         c = _asleep(color);
         face = _asleep_face;
     }

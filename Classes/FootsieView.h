@@ -7,7 +7,7 @@
     NSArray *targets;
     NSMutableSet *goalTargets;
     FootsieTargetView *fromGoal, *toGoal;
-    BOOL isCelebrating;
+    BOOL isCelebrating, isPaused, isEnded;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
     SystemSoundID bootSound, goalSound;

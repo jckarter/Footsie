@@ -14,10 +14,16 @@
 
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction;
 
+- (void)_flashBackground:(UIColor*)color;
+
 - (void)_pulseTimerTick:(NSTimer*)timer;
 - (void)_pulseAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
 
 - (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
+
+- (void)_pauseGame;
+- (void)_resetGame;
+- (void)_endGame:(FootsieTargetView*)source;
 
 - (void)addGoal:(FootsieTargetView*)t;
 - (void)removeGoal:(FootsieTargetView*)t;
@@ -57,24 +63,39 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_pulseTimerTick:(NSTimer*)timer
 {
-    if (isCelebrating)
+    if (isCelebrating || isEnded)
         return;
 
     NSMutableArray *pulses = [[NSMutableArray alloc] init];
 
-    if (toGoal) {
-        if (fromGoal)
-            if (fromGoal.isOn)
-                [pulses addObject:[self _pulseFromView:fromGoal color:fromGoal.color direction:PulseOut]];
-            else
-                fromGoal = nil;
-        [pulses addObject:[self _pulseFromView:toGoal color:[UIColor redColor] direction:PulseIn]];
-    } else {
-        for (FootsieTargetView *goal in goalTargets)
+    if (fromGoal) {
+        if (fromGoal.isOn)
+            [pulses addObject:[self _pulseFromView:fromGoal color:fromGoal.color direction:PulseOut]];
+        else
+            fromGoal = nil;
+    }
+
+    for (FootsieTargetView *goal in goalTargets) {
+        if (isPaused)
             [pulses addObject:[self _pulseFromView:goal
-                color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.4]
+                color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.2]
                 direction:PulseIn
             ]];
+        else {
+            if (!goal.isOn) {
+                if (goal != toGoal) {
+                    ++goal.deathPulses;
+                    if ([goal isDead]) {
+                        [self _endGame:goal];
+                        return;
+                    }
+                }
+                [pulses addObject:[self _pulseFromView:goal
+                    color:[UIColor redColor]
+                    direction:PulseIn
+                ]];
+            }
+        }
     }
 
     [UIView beginAnimations:nil context:pulses];
@@ -133,12 +154,10 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     goalTargets = [[NSMutableSet alloc] init];
 
     for (UIView *subview in [self subviews])
-        if ([subview isKindOfClass:[FootsieTargetView class]]) {
+        if ([subview isKindOfClass:[FootsieTargetView class]])
             [targets_tmp addObject:subview]; 
-            if (subview.tag == 1)
-                [self addGoal:(FootsieTargetView*)subview];
-        }
     targets = [[NSArray alloc] initWithArray:targets_tmp];
+
     fromGoal = toGoal = nil;
     isCelebrating = NO;
 
@@ -154,14 +173,46 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Goal", @"aiff"), &goalSound);
 
     [UIView beginAnimations:nil context:nil];
-
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(_splashViewFadeOutDidStop:finished:context:)];
-
     splashView.alpha = 0.0;
-
     [UIView commitAnimations];
+
+    [self _resetGame];
+}
+
+- (void)_resetGame
+{
+    [goalTargets removeAllObjects];
+    isPaused = YES;
+    isEnded = NO;
+    fromGoal = toGoal = nil;
+    for (FootsieTargetView *target in targets) {
+        target.isGoal = NO;
+        if (target.tag == 1)
+            [self addGoal:(FootsieTargetView*)target];
+    }
+}
+
+- (void)_pauseGame
+{
+    isPaused = YES;
+    isEnded = NO;
+    fromGoal = toGoal = nil;
+    for (FootsieTargetView *target in targets)
+        target.isOn = NO;
+}
+
+- (void)_endGame:(FootsieTargetView*)sourceTarget
+{
+    isEnded = YES;
+
+    [self _flashBackground:[UIColor redColor]];
+    for (FootsieTargetView *target in targets) {
+        target.isOn = (target == sourceTarget);
+        target.deathPulses = 1000;
+    }
 }
 
 - (void)dealloc
@@ -178,7 +229,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_updateForTouches:(NSSet*)touches
 {
-    if (isCelebrating)
+    if (isCelebrating || isEnded)
         return;
 
     if ([self _goalsReached])
@@ -205,17 +256,25 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     return YES;
 }
 
-- (void)_celebrateGoalsReached
+- (void)_flashBackground:(UIColor*)color
 {
-    isCelebrating = YES;
-
     UIColor *oldColor = [self.backgroundColor retain];
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = color;
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     self.backgroundColor = oldColor;
     [UIView commitAnimations];
+
+    [oldColor release];
+}
+
+- (void)_celebrateGoalsReached
+{
+    isCelebrating = YES;
+    isPaused = NO;
+
+    [self _flashBackground:[UIColor whiteColor]];
 
     if (!toGoal)
         AudioServicesPlaySystemSound(bootSound);
@@ -228,8 +287,6 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
         userInfo:nil
         repeats:NO
     ] retain];
-
-    [oldColor release];
 }
 
 - (void)_moveRandomGoalAfterDelay:(NSTimer*)timer
@@ -261,7 +318,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
-    [self _updateForTouches:[event allTouches]];
+    [self _pauseGame];
 }
 
 @end
