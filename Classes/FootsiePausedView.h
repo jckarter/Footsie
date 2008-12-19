@@ -3,6 +3,7 @@
 
 @interface FootsiePausedView : UIView
 {
+    NSTimer *timer;
 }
 
 @end

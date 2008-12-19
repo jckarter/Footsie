@@ -8,9 +8,8 @@
 @interface FootsieView : UIView
 {
     NSArray *targets;
-    NSMutableSet *goalTargets;
-    FootsieTargetView *fromGoal, *toGoal;
-    BOOL isCelebrating, isPaused, isEnded;
+    NSMutableSet *p1GoalTargets, *p2GoalTargets, *fromGoals, *toGoals;
+    BOOL isCelebrating, isPaused, isEnded, isP1;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
     SystemSoundID bootSound, goalSound, endSound;

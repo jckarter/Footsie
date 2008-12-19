@@ -173,7 +173,7 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
 - (void)_startGoalTimer
 {
     redrawTimer = [[NSTimer
-        scheduledTimerWithTimeInterval:0.1
+        scheduledTimerWithTimeInterval:0.2
         target:self
         selector:@selector(_goalTimerTick:)
         userInfo:nil
