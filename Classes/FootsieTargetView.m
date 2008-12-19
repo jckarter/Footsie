@@ -2,7 +2,7 @@
 #import "misc.h"
 
 static NSArray *targetColors;
-static const unsigned DEATH_PULSES = 3;
+static const unsigned DEATH_PULSES = 2;
 
 static void _happy_face(CGContextRef context)
 {
@@ -146,6 +146,15 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
         [self setNeedsDisplay];
         [self _checkGoalTimer];
     }
+}
+
+- (void)reset
+{
+    isGoal = NO;
+    isOn = NO;
+    deathPulses = 0;
+    [self setNeedsDisplay];
+    [self _checkGoalTimer];
 }
 
 - (void)_goalTimerTick:(NSTimer*)timer

@@ -1,5 +1,6 @@
 #import "FootsieView.h"
 #import "FootsiePulseView.h"
+#import "FootsieGameOverView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -20,10 +21,14 @@
 - (void)_pulseAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
 
 - (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
+- (void)_dropOutInfoViewDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
 
 - (void)_pauseGame;
 - (void)_resetGame;
 - (void)_endGame:(FootsieTargetView*)source;
+
+- (void)_dropInInfoView:(UIView*)view;
+- (void)_dropOutInfoView;
 
 - (void)addGoal:(FootsieTargetView*)t;
 - (void)removeGoal:(FootsieTargetView*)t;
@@ -47,6 +52,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 @synthesize targets, score;
 
+- (NSString*)scoreString
+{
+    return [NSString stringWithFormat:@"Your score: %u", score];
+}
+
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction
 {
     FootsiePulseView *pulse = [[FootsiePulseView alloc]
@@ -59,6 +69,45 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [self sendSubviewToBack:pulse];
     
     return [pulse autorelease];
+}
+
+- (void)_dropInInfoView:(UIView*)view
+{
+    if (activeInfoView)
+        [self _dropOutInfoView];
+
+    view.center = self.center;
+    view.transform = CGAffineTransformMake(0.0, -0.01, 0.01, 0.0, 0.0, 0.0);
+    view.alpha = 0.0;
+    [self addSubview:view];
+
+    [UIView beginAnimations:nil context:nil];
+    view.transform = CGAffineTransformMake(0.0, -1.0, 1.0, 0.0, 0.0, 0.0);
+    view.alpha = 1.0;
+    [UIView commitAnimations];
+
+    activeInfoView = view;
+}
+
+- (void)_dropOutInfoView
+{
+    if (!activeInfoView)
+        return;
+
+    [UIView beginAnimations:nil context:activeInfoView];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(_dropOutInfoViewDidStop:finished:context:)];
+    activeInfoView.transform = CGAffineTransformMake(0.0, -3.0, 3.0, 0.0, 0.0, 0.0);
+    activeInfoView.alpha = 0.0;
+    [UIView commitAnimations];
+
+    activeInfoView = nil;
+}
+
+- (void)_dropOutInfoViewDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
+{
+    UIView *view = (UIView*)context;
+    [view removeFromSuperview];
 }
 
 - (void)_pulseTimerTick:(NSTimer*)timer
@@ -180,6 +229,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     splashView.alpha = 0.0;
     [UIView commitAnimations];
 
+    activeInfoView = nil;
+    endView = [[FootsieGameOverView alloc] init];
+    //XXX pauseView = [[FootsiePopupView alloc] initWithMessage:@"P A U S E D"];
+    //XXX startView = [[FootsiePopupView alloc] initWithMessage:@"F O O T S I E"];
+
     [self _resetGame];
 }
 
@@ -191,10 +245,12 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     fromGoal = toGoal = nil;
     score = 0;
     for (FootsieTargetView *target in targets) {
-        target.isGoal = NO;
+        [target reset];
         if (target.tag == 1)
             [self addGoal:(FootsieTargetView*)target];
     }
+    [self _dropOutInfoView];
+    //XXX [self _dropInInfoView:startView];
 }
 
 - (void)_pauseGame
@@ -204,6 +260,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     fromGoal = toGoal = nil;
     for (FootsieTargetView *target in targets)
         target.isOn = NO;
+    [self _dropInInfoView:pauseView];
 }
 
 - (void)_endGame:(FootsieTargetView*)sourceTarget
@@ -217,6 +274,8 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
         target.isOn = (target == sourceTarget);
         target.deathPulses = 1000;
     }
+    endView.score = score;
+    [self _dropInInfoView:endView];
 }
 
 - (void)dealloc
@@ -229,6 +288,9 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [pulseTimer release];
     [targets release];
     [goalTargets release];
+    [endView release];
+    [pauseView release];
+    [startView release];
     [super dealloc];
 }
 
@@ -282,6 +344,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     else
         ++score;
 
+    [self _dropOutInfoView];
     [self _flashBackground:[UIColor whiteColor]];
 
     if (!toGoal)

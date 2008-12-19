@@ -2,6 +2,8 @@
 #import <UIKit/UIKit.h>
 #import "FootsieTargetView.h"
 
+@class FootsieGameOverView;
+
 @interface FootsieView : UIView
 {
     NSArray *targets;
@@ -12,6 +14,11 @@
     IBOutlet UIImageView *splashView;
     SystemSoundID bootSound, goalSound, endSound;
     unsigned score;
+
+    FootsieGameOverView *endView;
+    UIView *pauseView, *startView;
+
+    UIView *activeInfoView;
 }
 
 @property(nonatomic, retain) NSArray *targets;

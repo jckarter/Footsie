@@ -24,4 +24,6 @@ typedef enum FootsieSex { Female, Male } FootsieSex;
 
 - (BOOL)isDead;
 
+- (void)reset;
+
 @end

@@ -23,7 +23,8 @@
 		D800EA8B0EF99C7600EE20B9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */; };
 		D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */; };
 		D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EB280EFADC0300EE20B9 /* Crash.aiff */; };
-		D800EB350EFAEB4D00EE20B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = D800EB340EFAEB4D00EE20B9 /* iTunesArtwork */; };
+		D8073D6F0EFB2BEA004D289A /* FootsieGameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8073D6E0EFB2BEA004D289A /* FootsieGameOverView.m */; };
+		D8073D920EFB3ED5004D289A /* GameOver.png in Resources */ = {isa = PBXBuildFile; fileRef = D8073D910EFB3ED5004D289A /* GameOver.png */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 /* End PBXBuildFile section */
@@ -53,7 +54,9 @@
 		D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Goal.aiff; sourceTree = "<group>"; };
 		D800EB280EFADC0300EE20B9 /* Crash.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Crash.aiff; sourceTree = "<group>"; };
-		D800EB340EFAEB4D00EE20B9 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		D8073D6D0EFB2BEA004D289A /* FootsieGameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieGameOverView.h; sourceTree = "<group>"; };
+		D8073D6E0EFB2BEA004D289A /* FootsieGameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieGameOverView.m; sourceTree = "<group>"; };
+		D8073D910EFB3ED5004D289A /* GameOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameOver.png; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -77,6 +80,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D8073D6D0EFB2BEA004D289A /* FootsieGameOverView.h */,
+				D8073D6E0EFB2BEA004D289A /* FootsieGameOverView.m */,
 				1D3623240D0F684500981E51 /* FootsieAppDelegate.h */,
 				1D3623250D0F684500981E51 /* FootsieAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* FootsieViewController.h */,
@@ -125,7 +130,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D800EB340EFAEB4D00EE20B9 /* iTunesArtwork */,
+				D8073D910EFB3ED5004D289A /* GameOver.png */,
 				D800EA0B0EF872A600EE20B9 /* Default.png */,
 				D85E4FEE0EF3403A0082E971 /* Footsie.png */,
 				2899E5210DE3E06400AC0155 /* FootsieViewController.xib */,
@@ -198,7 +203,7 @@
 				D800EA770EF9976C00EE20B9 /* Boot.wav in Resources */,
 				D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */,
 				D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */,
-				D800EB350EFAEB4D00EE20B9 /* iTunesArtwork in Resources */,
+				D8073D920EFB3ED5004D289A /* GameOver.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +221,7 @@
 				D800E8FD0EF7264900EE20B9 /* FootsieTargetView.m in Sources */,
 				D800E9140EF7356600EE20B9 /* misc.m in Sources */,
 				D800EA1D0EF8850800EE20B9 /* FootsiePulseView.m in Sources */,
+				D8073D6F0EFB2BEA004D289A /* FootsieGameOverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +263,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
