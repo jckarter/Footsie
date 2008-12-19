@@ -1,6 +1,7 @@
 #import "FootsieView.h"
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
+//XXX #import "FootsiePausedView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -231,10 +232,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     activeInfoView = nil;
     endView = [[FootsieGameOverView alloc] init];
-    //XXX pauseView = [[FootsiePopupView alloc] initWithMessage:@"P A U S E D"];
+    //XXX pauseView = [[FootsiePausedView alloc] init];
     //XXX startView = [[FootsiePopupView alloc] initWithMessage:@"F O O T S I E"];
 
     [self _resetGame];
+    //XXX [self _dropInInfoView:startView];
 }
 
 - (void)_resetGame
@@ -250,7 +252,6 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
             [self addGoal:(FootsieTargetView*)target];
     }
     [self _dropOutInfoView];
-    //XXX [self _dropInInfoView:startView];
 }
 
 - (void)_pauseGame
@@ -260,7 +261,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     fromGoal = toGoal = nil;
     for (FootsieTargetView *target in targets)
         target.isOn = NO;
-    [self _dropInInfoView:pauseView];
+    //XXX [self _dropInInfoView:pauseView];
 }
 
 - (void)_endGame:(FootsieTargetView*)sourceTarget
@@ -289,7 +290,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [targets release];
     [goalTargets release];
     [endView release];
-    [pauseView release];
+    //XXX [pauseView release];
     [startView release];
     [super dealloc];
 }

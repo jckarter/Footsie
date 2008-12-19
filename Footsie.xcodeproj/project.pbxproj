@@ -25,6 +25,7 @@
 		D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EB280EFADC0300EE20B9 /* Crash.aiff */; };
 		D8073D6F0EFB2BEA004D289A /* FootsieGameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8073D6E0EFB2BEA004D289A /* FootsieGameOverView.m */; };
 		D8073D920EFB3ED5004D289A /* GameOver.png in Resources */ = {isa = PBXBuildFile; fileRef = D8073D910EFB3ED5004D289A /* GameOver.png */; };
+		D8073DD50EFB6B6D004D289A /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8073DD40EFB6B6D004D289A /* AddressBookUI.framework */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		D8073D6D0EFB2BEA004D289A /* FootsieGameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieGameOverView.h; sourceTree = "<group>"; };
 		D8073D6E0EFB2BEA004D289A /* FootsieGameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieGameOverView.m; sourceTree = "<group>"; };
 		D8073D910EFB3ED5004D289A /* GameOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameOver.png; sourceTree = "<group>"; };
+		D8073DD40EFB6B6D004D289A /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				D800EA8B0EF99C7600EE20B9 /* AudioToolbox.framework in Frameworks */,
+				D8073DD50EFB6B6D004D289A /* AddressBookUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +149,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8073DD40EFB6B6D004D289A /* AddressBookUI.framework */,
 				D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,

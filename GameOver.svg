@@ -44,7 +44,7 @@
        xlink:href="#linearGradient3155"
        id="linearGradient3161"
        x1="378.1239"
-       y1="563.14221"
+       y1="618.38763"
        x2="378.1239"
        y2="399.84442"
        gradientUnits="userSpaceOnUse" />
@@ -85,16 +85,16 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#757575;fill-opacity:0.75;stroke:url(#linearGradient3161);stroke-width:3.70000004999999987;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#757575;fill-opacity:0.75000000000000000;stroke:url(#linearGradient3161);stroke-width:3.70000004999999987;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2383"
        width="360.93649"
-       height="159.59779"
+       height="214.84319"
        x="197.65567"
        y="401.69443"
        ry="19.109055" />
     <text
        xml:space="preserve"
-       style="font-size:33.45436859000000140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Futura;-inkscape-font-specification:Futura"
+       style="font-size:33.45436859000000140px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffd3c2;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Futura;-inkscape-font-specification:Futura"
        x="223.70947"
        y="452.24252"
        id="text3163"
@@ -102,6 +102,18 @@
          sodipodi:role="line"
          id="tspan3165"
          x="223.70947"
-         y="452.24252">G A M E     O V E R</tspan></text>
+         y="452.24252">G <tspan
+   style="fill:#ffac72;fill-opacity:1"
+   id="tspan3207">A</tspan><tspan
+   style="fill:#ffd7af;fill-opacity:1"
+   id="tspan3217"> M</tspan><tspan
+   style="fill:#fff9db;fill-opacity:1"
+   id="tspan3239"> E</tspan><tspan
+   style="fill:#ffd7af;fill-opacity:1"
+   id="tspan3269">     O</tspan><tspan
+   style="fill:#fff9db;fill-opacity:1"
+   id="tspan3271"> V</tspan> E <tspan
+   style="fill:#ffac72;fill-opacity:1"
+   id="tspan3277">R</tspan></tspan></text>
   </g>
 </svg>

@@ -16,7 +16,8 @@
     unsigned score;
 
     FootsieGameOverView *endView;
-    UIView *pauseView, *startView;
+    //XXX FootsiePausedView *pauseView;
+    UIView *startView;
 
     UIView *activeInfoView;
 }
