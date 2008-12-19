@@ -3,6 +3,7 @@
 #import "FootsieTargetView.h"
 
 @class FootsieGameOverView;
+@class FootsiePausedView;
 
 @interface FootsieView : UIView
 {
@@ -16,7 +17,7 @@
     unsigned score;
 
     FootsieGameOverView *endView;
-    //XXX FootsiePausedView *pauseView;
+    FootsiePausedView *pauseView;
     UIView *startView;
 
     UIView *activeInfoView;

@@ -1,7 +1,7 @@
 #import "FootsieView.h"
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
-//XXX #import "FootsiePausedView.h"
+#import "FootsiePausedView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -232,11 +232,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     activeInfoView = nil;
     endView = [[FootsieGameOverView alloc] init];
-    //XXX pauseView = [[FootsiePausedView alloc] init];
+    pauseView = [[FootsiePausedView alloc] init];
     //XXX startView = [[FootsiePopupView alloc] initWithMessage:@"F O O T S I E"];
 
     [self _resetGame];
-    //XXX [self _dropInInfoView:startView];
+    [self _dropInInfoView:startView];
 }
 
 - (void)_resetGame
@@ -256,12 +256,15 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_pauseGame
 {
+    if (isPaused)
+        return;
+
     isPaused = YES;
     isEnded = NO;
     fromGoal = toGoal = nil;
     for (FootsieTargetView *target in targets)
         target.isOn = NO;
-    //XXX [self _dropInInfoView:pauseView];
+    [self _dropInInfoView:pauseView];
 }
 
 - (void)_endGame:(FootsieTargetView*)sourceTarget
@@ -290,15 +293,20 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [targets release];
     [goalTargets release];
     [endView release];
-    //XXX [pauseView release];
+    [pauseView release];
     [startView release];
     [super dealloc];
 }
 
 - (void)_updateForTouches:(NSSet*)touches
 {
-    if (isCelebrating || isEnded)
+    if (isCelebrating || isEnded) // XXX still need to queue touches while celebrating
         return;
+
+    if ([touches count] > 4) {
+        [self _pauseGame];
+        return;
+    }
 
     if ([self _goalsReached])
         [self _celebrateGoalsReached];

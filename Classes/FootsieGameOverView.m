@@ -29,13 +29,12 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 
     lukeWarmLukeFortunes = [[NSArray alloc] initWithObjects:
         @"You two should totally hang out sometime.",
-        @"How about another round? This one's on me.",
+        @"You two make a great pair.",
         nil
     ];
 
     hotTamaleFortunes = [[NSArray alloc] initWithObjects:
         @"I feel like you two have known each other all your lives.",
-        @"You two make a great pair.",
         @"You two should play somewhere a little quieter.",
         nil
     ];
@@ -53,9 +52,9 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
     else
         fortuneLabel.text = [hotTamaleFortunes randomObject];
 
-//    if (score < 10)
-//        addContactButton.alpha = 0.0;
-//    else
+    if (score < 10)
+        addContactButton.alpha = 0.0;
+    else
         addContactButton.alpha = 1.0;
 }
 
