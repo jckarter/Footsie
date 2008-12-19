@@ -300,7 +300,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_updateForTouches:(NSSet*)touches
 {
-    if (isCelebrating || isEnded) // XXX still need to queue touches while celebrating
+    if (isEnded)
         return;
 
     if ([touches count] > 4) {
@@ -308,7 +308,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
         return;
     }
 
-    if ([self _goalsReached])
+    if (!isCelebrating && [self _goalsReached])
         [self _celebrateGoalsReached];
 
     for (FootsieTargetView *target in targets) {
