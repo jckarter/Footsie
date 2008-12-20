@@ -32,6 +32,7 @@
 		D82EAABE0EFCA77B0092FD83 /* Boot.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D82EAABD0EFCA77B0092FD83 /* Boot.aiff */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
+		D8C0E6880EFCB35200D382F5 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C0E6870EFCB35200D382F5 /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
+		D8C0E6870EFCB35200D382F5 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				D800EB280EFADC0300EE20B9 /* Crash.aiff */,
 				D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */,
+				D8C0E6870EFCB35200D382F5 /* Entitlements.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				D8073DF10EFB744F004D289A /* Paused.png in Resources */,
 				D8073E510EFC9625004D289A /* Intro.png in Resources */,
 				D82EAABE0EFCA77B0092FD83 /* Boot.aiff in Resources */,
+				D8C0E6880EFCB35200D382F5 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +269,7 @@
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = Footsie;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AEF86B3-F874-4C51-978B-F99198F1AA58";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1B4010E-EC6D-409E-8C84-5B2B4F478EBA";
 			};
 			name = Debug;
 		};
@@ -273,13 +277,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Groff";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Joseph Groff";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Footsie_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = Footsie;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "23AC9A6A-1573-43B9-96D5-78EF029036D2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C74B0FFE-B21A-4BA0-810F-01F2FB14479E";
 			};
 			name = Release;
 		};

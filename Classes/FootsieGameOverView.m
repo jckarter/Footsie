@@ -45,14 +45,14 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
     score = s;
     scoreLabel.text = [NSString stringWithFormat:@"Your Score: %u", score];
 
-    if (score < 15)
+    if (score < 10)
         fortuneLabel.text = [coldFishFortunes randomObject];
-    else if (score < 30)
+    else if (score < 25)
         fortuneLabel.text = [lukeWarmLukeFortunes randomObject];
     else
         fortuneLabel.text = [hotTamaleFortunes randomObject];
 
-    if (score < 15)
+    if (score < 10)
         addContactButton.alpha = 0.0;
     else
         addContactButton.alpha = 1.0;

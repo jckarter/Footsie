@@ -16,10 +16,10 @@
         introBackground.opaque = NO;
         introBackground.backgroundColor = [UIColor clearColor];
 
-        UIFont *boldFont = [UIFont boldSystemFontOfSize:16];
+        UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
         UIFont *plainFont = [UIFont systemFontOfSize:13];
         UILabel *introLabel = [[[UILabel alloc] init] autorelease];
-        introLabel.frame = CGRectMake(14, 52, 270, 15);
+        introLabel.frame = CGRectMake(14, 47, 270, 15);
         introLabel.font = plainFont;
         introLabel.text = @"Touch and hold all of the angry faces to start.";
         introLabel.textColor = [UIColor whiteColor];
@@ -30,11 +30,13 @@
         introLabel.backgroundColor = [UIColor clearColor];
 
         UIButton *instructionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        instructionsButton.frame = CGRectMake(85, 65, 130, 28);
+        instructionsButton.frame = CGRectMake(85, 70, 130, 25);
         instructionsButton.font = boldFont;
+        [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
 
         [self addSubview:introBackground];
         [self addSubview:introLabel];
+        [self addSubview:instructionsButton];
     }
     return self;
 }
