@@ -4,6 +4,7 @@
 
 @class FootsieGameOverView;
 @class FootsiePausedView;
+@class FootsieIntroView;
 
 @interface FootsieView : UIView
 {
@@ -17,7 +18,7 @@
 
     FootsieGameOverView *endView;
     FootsiePausedView *pauseView;
-    UIView *startView;
+    FootsieIntroView *startView;
 
     UIView *activeInfoView;
 }

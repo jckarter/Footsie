@@ -30,7 +30,7 @@ static inline UIColor *_asleep(UIColor *c)
 {
     CGFloat const *comp = CGColorGetComponents(c.CGColor);
 
-    return [UIColor colorWithRed:(comp[0] + 0.6) * 0.4
+    return [UIColor colorWithRed:(comp[0] + 0.7) * 0.4
                     green:       (comp[1] + 0.6) * 0.4
                     blue:        (comp[2] + 0.6) * 0.4
                     alpha:       comp[3]];

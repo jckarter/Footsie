@@ -19,7 +19,6 @@
 		D800E9140EF7356600EE20B9 /* misc.m in Sources */ = {isa = PBXBuildFile; fileRef = D800E9130EF7356600EE20B9 /* misc.m */; };
 		D800EA0C0EF872A600EE20B9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D800EA0B0EF872A600EE20B9 /* Default.png */; };
 		D800EA1D0EF8850800EE20B9 /* FootsiePulseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D800EA1B0EF8850800EE20B9 /* FootsiePulseView.m */; };
-		D800EA770EF9976C00EE20B9 /* Boot.wav in Resources */ = {isa = PBXBuildFile; fileRef = D800EA760EF9976C00EE20B9 /* Boot.wav */; };
 		D800EA8B0EF99C7600EE20B9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */; };
 		D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */; };
 		D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D800EB280EFADC0300EE20B9 /* Crash.aiff */; };
@@ -28,6 +27,9 @@
 		D8073DD50EFB6B6D004D289A /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8073DD40EFB6B6D004D289A /* AddressBookUI.framework */; };
 		D8073DF10EFB744F004D289A /* Paused.png in Resources */ = {isa = PBXBuildFile; fileRef = D8073DF00EFB744F004D289A /* Paused.png */; };
 		D8073DF40EFB75D9004D289A /* FootsiePausedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8073DF30EFB75D9004D289A /* FootsiePausedView.m */; };
+		D8073E4F0EFC9613004D289A /* FootsieIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8073E4E0EFC9613004D289A /* FootsieIntroView.m */; };
+		D8073E510EFC9625004D289A /* Intro.png in Resources */ = {isa = PBXBuildFile; fileRef = D8073E500EFC9625004D289A /* Intro.png */; };
+		D82EAABE0EFCA77B0092FD83 /* Boot.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D82EAABD0EFCA77B0092FD83 /* Boot.aiff */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 /* End PBXBuildFile section */
@@ -53,7 +55,6 @@
 		D800EA0B0EF872A600EE20B9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D800EA1B0EF8850800EE20B9 /* FootsiePulseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsiePulseView.m; sourceTree = "<group>"; };
 		D800EA1C0EF8850800EE20B9 /* FootsiePulseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsiePulseView.h; sourceTree = "<group>"; };
-		D800EA760EF9976C00EE20B9 /* Boot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Boot.wav; sourceTree = "<group>"; };
 		D800EA8A0EF99C7600EE20B9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Goal.aiff; sourceTree = "<group>"; };
 		D800EB280EFADC0300EE20B9 /* Crash.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Crash.aiff; sourceTree = "<group>"; };
@@ -64,6 +65,10 @@
 		D8073DF00EFB744F004D289A /* Paused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Paused.png; sourceTree = "<group>"; };
 		D8073DF20EFB75D9004D289A /* FootsiePausedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsiePausedView.h; sourceTree = "<group>"; };
 		D8073DF30EFB75D9004D289A /* FootsiePausedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsiePausedView.m; sourceTree = "<group>"; };
+		D8073E4D0EFC9613004D289A /* FootsieIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieIntroView.h; sourceTree = "<group>"; };
+		D8073E4E0EFC9613004D289A /* FootsieIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieIntroView.m; sourceTree = "<group>"; };
+		D8073E500EFC9625004D289A /* Intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Intro.png; sourceTree = "<group>"; };
+		D82EAABD0EFCA77B0092FD83 /* Boot.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Boot.aiff; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -88,6 +93,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D8073E4D0EFC9613004D289A /* FootsieIntroView.h */,
+				D8073E4E0EFC9613004D289A /* FootsieIntroView.m */,
 				D8073DF20EFB75D9004D289A /* FootsiePausedView.h */,
 				D8073DF30EFB75D9004D289A /* FootsiePausedView.m */,
 				D8073D6D0EFB2BEA004D289A /* FootsieGameOverView.h */,
@@ -140,6 +147,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D82EAABD0EFCA77B0092FD83 /* Boot.aiff */,
+				D8073E500EFC9625004D289A /* Intro.png */,
 				D8073DF00EFB744F004D289A /* Paused.png */,
 				D8073D910EFB3ED5004D289A /* GameOver.png */,
 				D800EA0B0EF872A600EE20B9 /* Default.png */,
@@ -148,7 +157,6 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				D800EB280EFADC0300EE20B9 /* Crash.aiff */,
-				D800EA760EF9976C00EE20B9 /* Boot.wav */,
 				D800EADE0EF9A8DF00EE20B9 /* Goal.aiff */,
 			);
 			name = Resources;
@@ -212,11 +220,12 @@
 				2899E5220DE3E06400AC0155 /* FootsieViewController.xib in Resources */,
 				D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */,
 				D800EA0C0EF872A600EE20B9 /* Default.png in Resources */,
-				D800EA770EF9976C00EE20B9 /* Boot.wav in Resources */,
 				D800EADF0EF9A8DF00EE20B9 /* Goal.aiff in Resources */,
 				D800EB290EFADC0300EE20B9 /* Crash.aiff in Resources */,
 				D8073D920EFB3ED5004D289A /* GameOver.png in Resources */,
 				D8073DF10EFB744F004D289A /* Paused.png in Resources */,
+				D8073E510EFC9625004D289A /* Intro.png in Resources */,
+				D82EAABE0EFCA77B0092FD83 /* Boot.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +245,7 @@
 				D800EA1D0EF8850800EE20B9 /* FootsiePulseView.m in Sources */,
 				D8073D6F0EFB2BEA004D289A /* FootsieGameOverView.m in Sources */,
 				D8073DF40EFB75D9004D289A /* FootsiePausedView.m in Sources */,
+				D8073E4F0EFC9613004D289A /* FootsieIntroView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +265,7 @@
 				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = Footsie;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "23AC9A6A-1573-43B9-96D5-78EF029036D2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AEF86B3-F874-4C51-978B-F99198F1AA58";
 			};
 			name = Debug;
 		};

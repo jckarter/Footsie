@@ -16,11 +16,22 @@
    inkscape:version="0.46"
    sodipodi:docname="Paused.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/Users/joe/Documents/Code/Footsie/GameOver.png"
+   inkscape:export-filename="/Users/joe/Documents/Code/Footsie/Paused.png"
    inkscape:export-xdpi="74.050003"
    inkscape:export-ydpi="74.050003">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient3895">
+      <stop
+         id="stop3897"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop3899"
+         offset="1"
+         style="stop-color:#776161;stop-opacity:1;" />
+    </linearGradient>
     <linearGradient
        id="linearGradient3155">
       <stop
@@ -48,6 +59,15 @@
        x2="378.1239"
        y2="399.84442"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3895"
+       id="linearGradient3893"
+       x1="361.02847"
+       y1="454.42758"
+       x2="361.02847"
+       y2="423.70889"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -60,7 +80,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.81454783"
-     inkscape:cx="375"
+     inkscape:cx="319.75463"
      inkscape:cy="421.786"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -84,24 +104,27 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="opacity:1;fill:#757575;fill-opacity:0.75;stroke:url(#linearGradient3161);stroke-width:3.70000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect2383"
-       width="324.10629"
-       height="74.888214"
-       x="197.65567"
-       y="401.69443"
-       ry="19.109055" />
     <text
        xml:space="preserve"
-       style="font-size:33.45436859px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Futura;-inkscape-font-specification:Futura"
-       x="243.70947"
-       y="452.24252"
+       style="font-size:36.46728516000000297px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:url(#linearGradient3893);stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Futura;-inkscape-font-specification:Futura;stroke-miterlimit:4;stroke-dasharray:none"
+       x="233.14368"
+       y="453.42902"
        id="text3163"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="74.050003"
+       inkscape:export-ydpi="74.050003"><tspan
          sodipodi:role="line"
          id="tspan3165"
-         x="243.70947"
-         y="452.24252">P  A  U  S  E  D</tspan></text>
+         x="233.14368"
+         y="453.42902"
+         style="stroke:url(#linearGradient3893);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">P  A  U  S  E  D</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0"
+       id="rect3901"
+       width="268.86081"
+       height="40.513279"
+       x="225.8922"
+       y="418.8819"
+       ry="19.109055" />
   </g>
 </svg>

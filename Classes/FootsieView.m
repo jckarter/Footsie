@@ -2,6 +2,7 @@
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
 #import "FootsiePausedView.h"
+#import "FootsieIntroView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -188,6 +189,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 - (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
 {
     [splashView release];
+    [self _dropInInfoView:startView];
 }
 
 - (void)addGoal:(FootsieTargetView*)t toSet:(NSMutableSet*)set
@@ -238,7 +240,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
         repeats:YES
     ] retain];
 
-    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Boot", @"wav"), &bootSound);
+    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Boot", @"aiff"), &bootSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Goal", @"aiff"), &goalSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Crash", @"aiff"), &endSound);
 
@@ -252,10 +254,9 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     activeInfoView = nil;
     endView = [[FootsieGameOverView alloc] init];
     pauseView = [[FootsiePausedView alloc] init];
-    //XXX startView = [[FootsieIntroView alloc] init];
+    startView = [[FootsieIntroView alloc] init];
 
     [self _resetGame];
-    [self _dropInInfoView:startView];
 }
 
 - (void)_resetGame

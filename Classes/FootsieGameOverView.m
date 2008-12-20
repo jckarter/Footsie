@@ -45,14 +45,14 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
     score = s;
     scoreLabel.text = [NSString stringWithFormat:@"Your Score: %u", score];
 
-    if (score < 20)
+    if (score < 15)
         fortuneLabel.text = [coldFishFortunes randomObject];
-    else if (score < 50)
+    else if (score < 30)
         fortuneLabel.text = [lukeWarmLukeFortunes randomObject];
     else
         fortuneLabel.text = [hotTamaleFortunes randomObject];
 
-    if (score < 20)
+    if (score < 15)
         addContactButton.alpha = 0.0;
     else
         addContactButton.alpha = 1.0;
@@ -126,7 +126,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         [addContactButton addTarget:self action:@selector(_addContact:) forControlEvents:UIControlEventTouchUpInside];
 
         UIButton *resetButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        resetButton.frame = CGRectMake(160, 141, 130, 28);
+        resetButton.frame = CGRectMake(85, 141, 130, 28);
         resetButton.font = boldFont;
         [resetButton setTitle:@"Play Again" forState:UIControlStateNormal];
         [resetButton addTarget:self action:@selector(_resetGame:) forControlEvents:UIControlEventTouchUpInside];
