@@ -1,7 +1,6 @@
 #import "FootsieView.h"
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
-#import "FootsiePausedView.h"
 #import "FootsieIntroView.h"
 #import "misc.h"
 #include <stdlib.h>
@@ -43,11 +42,6 @@
 - (void)moveGoal:(FootsieTargetView*)from to:(FootsieTargetView*)to inSet:(NSMutableSet*)set;
 
 @end
-
-static NSURL *_resource_url(NSString *name, NSString *type)
-{
-    return [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:name ofType:type]];
-}
 
 static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 {
@@ -159,15 +153,15 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     }
 
     [pulses addObjectsFromArray:[self _pulseGoals:p1GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.2 blue:0.4 alpha:0.80]
+        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.70]
     ]];
     [pulses addObjectsFromArray:[self _pulseGoals:p2GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.4 blue:0.2 alpha:0.80]
+        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.70]
     ]];
 
     [UIView beginAnimations:nil context:pulses];
 
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:1.0];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(_pulseAnimationDidStop:finished:context:)];
     for (FootsiePulseView *pulse in pulses)
@@ -233,7 +227,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     isP1 = !(rand() % 0x40000000);
 
     pulseTimer = [[NSTimer
-        scheduledTimerWithTimeInterval:0.4
+        scheduledTimerWithTimeInterval:0.5
         target:self
         selector:@selector(_pulseTimerTick:)
         userInfo:nil
@@ -253,8 +247,8 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     activeInfoView = nil;
     endView = [[FootsieGameOverView alloc] init];
-    pauseView = [[FootsiePausedView alloc] init];
-    startView = [[FootsieIntroView alloc] init];
+    pauseView = [[FootsieIntroView alloc] initWithBackground:@"Paused" instructions:NO];
+    startView = [[FootsieIntroView alloc] initWithBackground:@"Intro"  instructions:YES];
 
     [self _resetGame];
 }
@@ -331,9 +325,9 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     if (isEnded)
         return;
 
-    if ([touches count] > 4) {
-        [self _pauseGame];
-        return;
+    NSMutableArray *firstFourTouches = [NSMutableArray arrayWithArray:[touches allObjects]];
+    if ([firstFourTouches count] > 4) {
+        [firstFourTouches removeObjectsInRange:NSMakeRange(4, [firstFourTouches count] - 4)];
     }
 
     if (!isCelebrating && [self _goalsReached])
@@ -341,7 +335,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     for (FootsieTargetView *target in targets) {
         BOOL isOn = NO;
-        for (UITouch *touch in touches) {
+        for (UITouch *touch in firstFourTouches) {
             if ([touch phase] == UITouchPhaseEnded || [touch phase] == UITouchPhaseCancelled)
                 continue;
             if (CGRectContainsPoint([target touchRegion], [touch locationInView:self]))

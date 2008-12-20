@@ -12,6 +12,11 @@
 
 @end
 
+static inline NSURL *_resource_url(NSString *name, NSString *type)
+{
+    return [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:name ofType:type]];
+}
+
 static inline CGFloat _rand_between(CGFloat lo, CGFloat hi)
 {
     CGFloat r = (CGFloat)rand()/(CGFloat)RAND_MAX;

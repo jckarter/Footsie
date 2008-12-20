@@ -24,6 +24,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
     coldFishFortunes = [[NSArray alloc] initWithObjects:
         @"Perhaps it wasn't meant to be.",
         @"Maybe you should just stay friends.",
+        @"Maybe you should start with coffee first.",
         nil
     ];
 

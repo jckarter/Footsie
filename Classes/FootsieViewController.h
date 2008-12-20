@@ -2,7 +2,6 @@
 
 @interface FootsieViewController : UIViewController
 {
-
 }
 
 @end

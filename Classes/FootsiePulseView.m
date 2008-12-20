@@ -1,7 +1,7 @@
 #import "FootsiePulseView.h"
 
 static const CGFloat PULSE_NATIVE_RADIUS = 40.0;
-static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 5.0;
+static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 8.0;
 
 static CGAffineTransform _in_transform, _out_transform;
 

@@ -4,4 +4,6 @@
 {
 }
 
+- (id)initWithBackground:(NSString*)bgimage instructions:(BOOL)instructions;
+
 @end
