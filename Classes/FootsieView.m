@@ -25,6 +25,7 @@
 
 - (void)_killSubviewsOfClass:(Class)clas;
 - (void)_flashBackground:(UIColor*)color;
+- (void)_addFlower;
 
 - (void)_pulseTimerTick:(NSTimer*)timer;
 - (void)_pulseAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
@@ -444,7 +445,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 {
     FootsieTargetView *from, *to;
     do { from = [set randomObject]; } while ([toGoals containsObject:from]);
-    do { to   = [targets randomObject]; } while (to.isGoal || _too_close(from, to));
+    do { to   = [targets randomObject]; } while ([fromGoals containsObject:to] || to.isGoal || _too_close(from, to));
     [self moveGoal:from to:to inSet:set];
 }
 
