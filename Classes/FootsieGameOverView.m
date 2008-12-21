@@ -69,7 +69,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         self.opaque = NO;
         self.bounds = CGRectMake(0, 0, 300, 180);
         
-        UIFont *boldFont = [UIFont boldSystemFontOfSize:16];
+        UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
         UIFont *plainFont = [UIFont systemFontOfSize:14];
 
         UIImageView *gameOverBackground = [[UIImageView alloc] initWithImage:

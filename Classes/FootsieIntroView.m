@@ -48,13 +48,4 @@
     return self;
 }
 
-- (IBAction)showInstructions:(id)sender
-{
-    FootsieAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    UIViewController *vc = [delegate viewController];
-    UIViewController *instructions = [delegate instructionsViewController];
-
-    [vc presentModalViewController:instructions animated:YES];
-}
-
 @end

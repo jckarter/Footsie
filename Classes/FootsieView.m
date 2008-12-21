@@ -2,6 +2,7 @@
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
 #import "FootsieIntroView.h"
+#import "FootsieFlowerView.h"
 #import "misc.h"
 #include <stdlib.h>
 #include <math.h>
@@ -22,7 +23,7 @@
 
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction;
 
-- (void)_killPulses;
+- (void)_killSubviewsOfClass:(Class)clas;
 - (void)_flashBackground:(UIColor*)color;
 
 - (void)_pulseTimerTick:(NSTimer*)timer;
@@ -148,16 +149,16 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     for (FootsieTargetView *fromGoal in [fromGoals allObjects]) {
         if (fromGoal.isOn)
-            [pulses addObject:[self _pulseFromView:fromGoal color:_with_alpha(fromGoal.color, 0.5) direction:PulseOut]];
+            [pulses addObject:[self _pulseFromView:fromGoal color:_with_alpha(fromGoal.color, 0.7) direction:PulseOut]];
         else
             [fromGoals removeObject:fromGoal];
     }
 
     [pulses addObjectsFromArray:[self _pulseGoals:p1GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.50]
+        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.70]
     ]];
     [pulses addObjectsFromArray:[self _pulseGoals:p2GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.50]
+        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.70]
     ]];
 
     [UIView beginAnimations:nil context:pulses];
@@ -225,7 +226,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     fromGoals = [[NSMutableSet alloc] init];
     toGoals   = [[NSMutableSet alloc] init];
     isCelebrating = NO;
-    isP1 = !(rand() % 0x40000000);
+    isP1 = !(rand() & 0x40000000);
 
     pulseTimer = [[NSTimer
         scheduledTimerWithTimeInterval:0.5
@@ -256,6 +257,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_resetGame
 {
+    [self _killSubviewsOfClass:[FootsieFlowerView class]];
     [p1GoalTargets removeAllObjects];
     [p2GoalTargets removeAllObjects];
     isPaused = YES;
@@ -356,10 +358,10 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     return YES;
 }
 
-- (void)_killPulses
+- (void)_killSubviewsOfClass:(Class)clas
 {
     for (UIView *view in [self subviews])
-        if ([view isKindOfClass:[FootsiePulseView class]])
+        if ([view isKindOfClass:clas])
             [view removeFromSuperview];
 }
 
@@ -368,7 +370,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     UIColor *oldColor = [self.backgroundColor retain];
     self.backgroundColor = color;
 
-    [self _killPulses];
+    [self _killSubviewsOfClass:[FootsiePulseView class]];
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
@@ -378,13 +380,35 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [oldColor release];
 }
 
+- (void)_addFlower
+{
+    CGPoint flowerCenter = [[targets randomObject] center];
+    CGFloat rho = _rand_between(38.0, 40.0), theta = _rand_between(0.0, 2*M_PI);
+
+    FootsieFlowerView *flower = [[[FootsieFlowerView alloc]
+        initAtPoint:CGPointMake(flowerCenter.x + rho*cos(theta), flowerCenter.y + rho*sin(theta))
+        forScore:score
+    ] autorelease];
+    flower.transform = CGAffineTransformMakeScale(0.01, 0.01);
+
+    [self addSubview:flower];
+    if (rand() & 0x40000000) [self sendSubviewToBack:flower];
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2];
+    flower.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    [UIView commitAnimations];
+}
+
 - (void)_celebrateGoalsReached
 {
     isCelebrating = YES;
     if (isPaused)
         isPaused = NO;
-    else
+    else {
+        [self _addFlower];
         ++score;
+    }
 
     [self _dropOutInfoView];
     [self _flashBackground:[UIColor whiteColor]];
