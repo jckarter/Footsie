@@ -31,6 +31,11 @@
 		D82EAABE0EFCA77B0092FD83 /* Boot.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D82EAABD0EFCA77B0092FD83 /* Boot.aiff */; };
 		D8593B610EFD7DBF00A7801B /* Instructions.html in Resources */ = {isa = PBXBuildFile; fileRef = D8593B600EFD7DBF00A7801B /* Instructions.html */; };
 		D8593B7C0EFD946A00A7801B /* Marquee.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593B7B0EFD946A00A7801B /* Marquee.png */; };
+		D8593BD40EFDC86600A7801B /* Instruction1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD00EFDC86600A7801B /* Instruction1.png */; };
+		D8593BD50EFDC86600A7801B /* Instruction2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD10EFDC86600A7801B /* Instruction2.png */; };
+		D8593BD60EFDC86600A7801B /* Instruction3.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD20EFDC86600A7801B /* Instruction3.png */; };
+		D8593BD70EFDC86600A7801B /* Instruction5.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD30EFDC86600A7801B /* Instruction5.png */; };
+		D8593BD90EFDCE3100A7801B /* Instruction4.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD80EFDCE3100A7801B /* Instruction4.png */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 		D8C0E6880EFCB35200D382F5 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C0E6870EFCB35200D382F5 /* Entitlements.plist */; };
@@ -73,6 +78,11 @@
 		D82EAABD0EFCA77B0092FD83 /* Boot.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Boot.aiff; sourceTree = "<group>"; };
 		D8593B600EFD7DBF00A7801B /* Instructions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Instructions.html; sourceTree = "<group>"; };
 		D8593B7B0EFD946A00A7801B /* Marquee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marquee.png; sourceTree = "<group>"; };
+		D8593BD00EFDC86600A7801B /* Instruction1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instruction1.png; sourceTree = "<group>"; };
+		D8593BD10EFDC86600A7801B /* Instruction2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instruction2.png; sourceTree = "<group>"; };
+		D8593BD20EFDC86600A7801B /* Instruction3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instruction3.png; sourceTree = "<group>"; };
+		D8593BD30EFDC86600A7801B /* Instruction5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instruction5.png; sourceTree = "<group>"; };
+		D8593BD80EFDCE3100A7801B /* Instruction4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instruction4.png; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -155,6 +165,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8593BD80EFDCE3100A7801B /* Instruction4.png */,
+				D8593BD00EFDC86600A7801B /* Instruction1.png */,
+				D8593BD10EFDC86600A7801B /* Instruction2.png */,
+				D8593BD20EFDC86600A7801B /* Instruction3.png */,
+				D8593BD30EFDC86600A7801B /* Instruction5.png */,
 				D8593B7B0EFD946A00A7801B /* Marquee.png */,
 				D8593B600EFD7DBF00A7801B /* Instructions.html */,
 				D82EAABD0EFCA77B0092FD83 /* Boot.aiff */,
@@ -242,6 +257,11 @@
 				D8C0E6AA0EFCD48600D382F5 /* FootsieInstructionsViewController.xib in Resources */,
 				D8593B610EFD7DBF00A7801B /* Instructions.html in Resources */,
 				D8593B7C0EFD946A00A7801B /* Marquee.png in Resources */,
+				D8593BD40EFDC86600A7801B /* Instruction1.png in Resources */,
+				D8593BD50EFDC86600A7801B /* Instruction2.png in Resources */,
+				D8593BD60EFDC86600A7801B /* Instruction3.png in Resources */,
+				D8593BD70EFDC86600A7801B /* Instruction5.png in Resources */,
+				D8593BD90EFDCE3100A7801B /* Instruction4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

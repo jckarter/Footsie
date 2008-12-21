@@ -22,6 +22,7 @@
 
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction;
 
+- (void)_killPulses;
 - (void)_flashBackground:(UIColor*)color;
 
 - (void)_pulseTimerTick:(NSTimer*)timer;
@@ -147,16 +148,16 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     for (FootsieTargetView *fromGoal in [fromGoals allObjects]) {
         if (fromGoal.isOn)
-            [pulses addObject:[self _pulseFromView:fromGoal color:fromGoal.color direction:PulseOut]];
+            [pulses addObject:[self _pulseFromView:fromGoal color:_with_alpha(fromGoal.color, 0.5) direction:PulseOut]];
         else
             [fromGoals removeObject:fromGoal];
     }
 
     [pulses addObjectsFromArray:[self _pulseGoals:p1GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.70]
+        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.50]
     ]];
     [pulses addObjectsFromArray:[self _pulseGoals:p2GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.70]
+        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.50]
     ]];
 
     [UIView beginAnimations:nil context:pulses];
@@ -325,24 +326,25 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     if (isEnded)
         return;
 
-    NSMutableArray *firstFourTouches = [NSMutableArray arrayWithArray:[touches allObjects]];
-    if ([firstFourTouches count] > 4) {
-        [firstFourTouches removeObjectsInRange:NSMakeRange(4, [firstFourTouches count] - 4)];
+    NSMutableSet *firstFourTouches = [NSMutableSet setWithSet:touches];
+    while ([firstFourTouches count] > 4)
+        [firstFourTouches removeObject:[firstFourTouches anyObject]];
+
+    for (FootsieTargetView *target in targets) {
+        BOOL isOn = NO;
+        for (UITouch *touch in [firstFourTouches allObjects]) {
+            if ([touch phase] == UITouchPhaseEnded || [touch phase] == UITouchPhaseCancelled)
+                continue;
+            if (CGRectContainsPoint([target touchRegion], [touch locationInView:self])) {
+                [firstFourTouches removeObject:touch];
+                isOn = YES;
+            }
+        }
+        target.isOn = isOn;
     }
 
     if (!isCelebrating && [self _goalsReached])
         [self _celebrateGoalsReached];
-
-    for (FootsieTargetView *target in targets) {
-        BOOL isOn = NO;
-        for (UITouch *touch in firstFourTouches) {
-            if ([touch phase] == UITouchPhaseEnded || [touch phase] == UITouchPhaseCancelled)
-                continue;
-            if (CGRectContainsPoint([target touchRegion], [touch locationInView:self]))
-                isOn = YES;
-        }
-        target.isOn = isOn;
-    }
 }
 
 - (BOOL)_goalsReached
@@ -354,10 +356,19 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     return YES;
 }
 
+- (void)_killPulses
+{
+    for (UIView *view in [self subviews])
+        if ([view isKindOfClass:[FootsiePulseView class]])
+            [view removeFromSuperview];
+}
+
 - (void)_flashBackground:(UIColor*)color
 {
     UIColor *oldColor = [self.backgroundColor retain];
     self.backgroundColor = color;
+
+    [self _killPulses];
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];

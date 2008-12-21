@@ -1,7 +1,8 @@
 #import "FootsiePulseView.h"
 
-static const CGFloat PULSE_NATIVE_RADIUS = 40.0;
-static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 8.0;
+static const CGFloat PULSE_NATIVE_RADIUS = 20.0;
+static const CGFloat PULSE_NATIVE_STROKE_WIDTH = 3.0;
+static const unsigned PULSE_SLICES = 11;
 
 static CGAffineTransform _in_transform, _out_transform;
 
@@ -14,8 +15,8 @@ static void _pulse_in(UIView *v)  { v.transform = _in_transform;  v.alpha = 1.0;
 
 + (void)initialize
 {
-    _in_transform = CGAffineTransformMakeScale(0.5, 0.5);
-    _out_transform = CGAffineTransformMakeScale(5.0, 5.0);
+    _in_transform = CGAffineTransformMakeScale(1.0, 1.0);
+    _out_transform = CGAffineTransformMakeScale(10.0, 10.0);
 }
 
 - (FootsiePulseView*)initWithCenter:(CGPoint)point color:(UIColor*)co direction:(FootsiePulseViewDirection)dir
@@ -60,11 +61,28 @@ static void _pulse_in(UIView *v)  { v.transform = _in_transform;  v.alpha = 1.0;
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGContextSetLineWidth(context, PULSE_NATIVE_STROKE_WIDTH);
-    CGContextStrokeEllipseInRect(context,
-        CGRectInset(self.bounds, PULSE_NATIVE_STROKE_WIDTH*0.5, PULSE_NATIVE_STROKE_WIDTH*0.5)
-    );
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextTranslateCTM(context, CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+
+    CGFloat front, back;
+    if (direction == PulseOut) {
+        back = PULSE_NATIVE_RADIUS-PULSE_NATIVE_STROKE_WIDTH;
+        front = PULSE_NATIVE_RADIUS;
+    } else {
+        front = PULSE_NATIVE_RADIUS-PULSE_NATIVE_STROKE_WIDTH;
+        back = PULSE_NATIVE_RADIUS;
+    }
+
+    for (unsigned i = 0; i < PULSE_SLICES; ++i) {
+        CGContextSaveGState(context);
+        CGContextRotateCTM(context, i * 2*M_PI / PULSE_SLICES);
+        CGContextMoveToPoint(context, front, 0.0);
+        CGContextAddLineToPoint(context, back,  PULSE_NATIVE_STROKE_WIDTH);
+        CGContextAddLineToPoint(context, back, -PULSE_NATIVE_STROKE_WIDTH);
+        CGContextClosePath(context);
+        CGContextFillPath(context);
+        CGContextRestoreGState(context);
+    }
 }
 
 @end

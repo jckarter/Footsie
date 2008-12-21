@@ -44,9 +44,9 @@
 
         if (instructions) {
             UIButton *instructionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            instructionsButton.frame = CGRectMake(75, 70, 150, 25);
+            instructionsButton.frame = CGRectMake(85, 70, 130, 25);
             instructionsButton.font = boldFont;
-            [instructionsButton setTitle:@"More Instructions" forState:UIControlStateNormal];
+            [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
             [instructionsButton addTarget:self action:@selector(_showInstructions:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:instructionsButton];
         }
