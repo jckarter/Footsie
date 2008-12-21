@@ -3,12 +3,6 @@
 #import "FootsieViewController.h"
 #import "FootsieInstructionsViewController.h"
 
-@interface FootsieIntroView ()
-
-- (IBAction)_showInstructions:(id)sender;
-
-@end
-
 @implementation FootsieIntroView
 
 - (id)initWithBackground:(NSString*)bgimage instructions:(BOOL)instructions
@@ -47,14 +41,14 @@
             instructionsButton.frame = CGRectMake(85, 70, 130, 25);
             instructionsButton.font = boldFont;
             [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
-            [instructionsButton addTarget:self action:@selector(_showInstructions:) forControlEvents:UIControlEventTouchUpInside];
+            [instructionsButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(showInstructions:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:instructionsButton];
         }
     }
     return self;
 }
 
-- (IBAction)_showInstructions:(id)sender
+- (IBAction)showInstructions:(id)sender
 {
     FootsieAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     UIViewController *vc = [delegate viewController];

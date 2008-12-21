@@ -8,10 +8,6 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 @interface FootsieGameOverView ()
 
 - (IBAction)_resetGame:(id)sender;
-- (IBAction)_addContact:(id)sender;
-
-- (void)newPersonViewController:(ABNewPersonViewController *)newPersonViewController
-    didCompleteWithNewPerson:(ABRecordRef)person;
 
 @end
 
@@ -31,12 +27,14 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
     lukeWarmLukeFortunes = [[NSArray alloc] initWithObjects:
         @"You two should totally hang out sometime.",
         @"You two make a great pair.",
+        @"How about another round? This one's on me.",
         nil
     ];
 
     hotTamaleFortunes = [[NSArray alloc] initWithObjects:
         @"I feel like you two have known each other all your lives.",
         @"You two should play somewhere a little quieter.",
+        @"Is it just me, or are there bells in the distance?",
         nil
     ];
 }
@@ -62,26 +60,6 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 - (IBAction)_resetGame:(id)sender
 {
     [self.superview _resetGame];
-}
-
-- (IBAction)_addContact:(id)sender
-{
-    ABNewPersonViewController *newPerson = [[[ABNewPersonViewController alloc] init] autorelease];
-    newPerson.newPersonViewDelegate = self;
-
-    UINavigationController *nc = [[[UINavigationController alloc]
-        initWithRootViewController:newPerson
-    ] autorelease];
-
-    UIViewController *vc = [(FootsieAppDelegate*)[[UIApplication sharedApplication] delegate] viewController];
-    [vc presentModalViewController:nc animated:YES];
-}
-
-- (void)newPersonViewController:(ABNewPersonViewController *)newPerson
-    didCompleteWithNewPerson:(ABRecordRef)whatevs
-{
-    UIViewController *vc = [(FootsieAppDelegate*)[[UIApplication sharedApplication] delegate] viewController];
-    [vc dismissModalViewControllerAnimated:YES];
 }
 
 - (id)init
@@ -124,10 +102,16 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         addContactButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         addContactButton.frame = CGRectMake(10, 144, 28, 28);
         addContactButton.font = boldFont;
-        [addContactButton addTarget:self action:@selector(_addContact:) forControlEvents:UIControlEventTouchUpInside];
+        [addContactButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(addContact:) forControlEvents:UIControlEventTouchUpInside];
+
+        UIButton *instructionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        instructionsButton.frame = CGRectMake(44, 144, 110, 25);
+        instructionsButton.font = boldFont;
+        [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
+        [instructionsButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(showInstructions:) forControlEvents:UIControlEventTouchUpInside];
 
         UIButton *resetButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        resetButton.frame = CGRectMake(85, 141, 130, 28);
+        resetButton.frame = CGRectMake(160, 144, 110, 25);
         resetButton.font = boldFont;
         [resetButton setTitle:@"Play Again" forState:UIControlStateNormal];
         [resetButton addTarget:self action:@selector(_resetGame:) forControlEvents:UIControlEventTouchUpInside];
@@ -136,6 +120,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         [self addSubview:scoreLabel];
         [self addSubview:fortuneLabel];
         [self addSubview:addContactButton];
+        [self addSubview:instructionsButton];
         [self addSubview:resetButton];
     }
     return self;

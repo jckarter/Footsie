@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
-#import <AddressBookUI/AddressBookUI.h>
 
-@interface FootsieGameOverView : UIView <ABNewPersonViewControllerDelegate>
+@interface FootsieGameOverView : UIView
 {
     unsigned score;
     UILabel *scoreLabel;
