@@ -2,7 +2,7 @@
 
 @interface FootsieArrowView : UIView
 {
-    CGPoint from, to;
+    CGPoint from, to, control;
 }
 
 - (id)initFromPoint:(CGPoint)from toPoint:(CGPoint)to;
