@@ -13,7 +13,7 @@
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
     SystemSoundID bootSound, goalSound, endSound;
-    unsigned score;
+    unsigned score, turnScoreValue;
 
     FootsieGameOverView *endView;
     FootsieIntroView *pauseView, *startView;

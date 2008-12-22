@@ -267,6 +267,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [fromGoals removeAllObjects];
     [toGoals removeAllObjects];
     score = 0;
+    turnScoreValue = 1;
     for (FootsieTargetView *target in targets) {
         [target reset];
         if (target.tag == 1)
@@ -408,7 +409,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     isCelebrating = YES;
     if (isPaused)
         isPaused = NO;
-    else {
+    else for (unsigned i = 0; i < turnScoreValue; ++i) {
         [self _addFlower];
         ++score;
     }
@@ -458,12 +459,16 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_moveOneRandomGoal
 {
+    turnScoreValue = 1;
+
     NSMutableSet *set = (isP1 = !isP1) ? p1GoalTargets : p2GoalTargets;
     [self _moveRandomGoalInSet:set withArrow:NO];
 }
 
 - (void)_moveTwoRandomGoals
 {
+    turnScoreValue = 3;
+
     [self _moveRandomGoalInSet:p1GoalTargets withArrow:YES];
     [self _moveRandomGoalInSet:p2GoalTargets withArrow:YES];
 }
