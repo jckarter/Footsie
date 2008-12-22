@@ -168,7 +168,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
                 scheduledTimerWithTimeInterval:timerDelay
                 target:self
                 selector:@selector(_dropFlower:)
-                userInfo:view
+                userInfo:[view retain]
                 repeats:NO
             ] retain];
             timerDelay += timerDelayDelta;
@@ -181,16 +181,20 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 {
     UIView *flower = [timer userInfo];
 
-    [UIView beginAnimations:nil context:flower];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDidStopSelector:@selector(_dropFlowerAnimationDidStop:finished:context:)];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    if (flower.superview) {
+        [UIView beginAnimations:nil context:flower];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDidStopSelector:@selector(_dropFlowerAnimationDidStop:finished:context:)];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 
-    flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
-    flower.transform = CGAffineTransformMakeRotation(_rand_between(-0.5, 0.5));
+        flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
+        flower.transform = CGAffineTransformMakeRotation(_rand_between(-0.5, 0.5));
 
-    [UIView commitAnimations];
+        [UIView commitAnimations];
+    } else {
+        [flower release];
+    }
 
     [timer release];
 }
@@ -199,6 +203,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 {
     UIView *flower = (UIView*)context;
     [flower removeFromSuperview];
+    [flower release];
     ++self.talliedScore;
 
     AudioServicesPlaySystemSound([(FootsieView*)self.superview coinSound]);
