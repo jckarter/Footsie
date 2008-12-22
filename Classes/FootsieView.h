@@ -12,7 +12,7 @@
     BOOL isCelebrating, isPaused, isEnded, isP1;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
-    SystemSoundID bootSound, goalSound, endSound;
+    SystemSoundID bootSound, goalSound, endSound, coinSound, cashSound;
     unsigned score, turnScoreValue;
 
     FootsieGameOverView *endView;
@@ -23,5 +23,7 @@
 
 @property(nonatomic, retain) NSArray *targets;
 @property unsigned score;
+
+@property SystemSoundID bootSound, goalSound, endSound, coinSound, cashSound;
 
 @end

@@ -38,6 +38,8 @@
 		D8593BD90EFDCE3100A7801B /* Instruction4.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593BD80EFDCE3100A7801B /* Instruction4.png */; };
 		D8593BFF0EFEFDFD00A7801B /* FootsieFlowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8593BFE0EFEFDFD00A7801B /* FootsieFlowerView.m */; };
 		D8593C2E0EFF159200A7801B /* FootsieArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8593C2D0EFF159200A7801B /* FootsieArrowView.m */; };
+		D8593C8E0EFF6C9500A7801B /* Cash.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D8593C8C0EFF6C9500A7801B /* Cash.aiff */; };
+		D8593C8F0EFF6C9500A7801B /* Coin.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D8593C8D0EFF6C9500A7801B /* Coin.aiff */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 		D8C0E6880EFCB35200D382F5 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C0E6870EFCB35200D382F5 /* Entitlements.plist */; };
@@ -89,6 +91,8 @@
 		D8593BFE0EFEFDFD00A7801B /* FootsieFlowerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieFlowerView.m; sourceTree = "<group>"; };
 		D8593C2C0EFF159200A7801B /* FootsieArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieArrowView.h; sourceTree = "<group>"; };
 		D8593C2D0EFF159200A7801B /* FootsieArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieArrowView.m; sourceTree = "<group>"; };
+		D8593C8C0EFF6C9500A7801B /* Cash.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Cash.aiff; sourceTree = "<group>"; };
+		D8593C8D0EFF6C9500A7801B /* Coin.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Coin.aiff; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8593C8C0EFF6C9500A7801B /* Cash.aiff */,
+				D8593C8D0EFF6C9500A7801B /* Coin.aiff */,
 				D8593BD80EFDCE3100A7801B /* Instruction4.png */,
 				D8593BD00EFDC86600A7801B /* Instruction1.png */,
 				D8593BD10EFDC86600A7801B /* Instruction2.png */,
@@ -272,6 +278,8 @@
 				D8593BD60EFDC86600A7801B /* Instruction3.png in Resources */,
 				D8593BD70EFDC86600A7801B /* Instruction5.png in Resources */,
 				D8593BD90EFDCE3100A7801B /* Instruction4.png in Resources */,
+				D8593C8E0EFF6C9500A7801B /* Cash.aiff in Resources */,
+				D8593C8F0EFF6C9500A7801B /* Coin.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

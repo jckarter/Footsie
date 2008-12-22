@@ -2,12 +2,12 @@
 
 @interface FootsieGameOverView : UIView
 {
-    unsigned score;
+    unsigned score, talliedScore;
     UILabel *scoreLabel;
     UILabel *fortuneLabel;
     UIButton *addContactButton;
 }
 
-@property unsigned score;
+@property unsigned score, talliedScore;
 
 @end

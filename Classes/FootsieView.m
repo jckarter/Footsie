@@ -57,6 +57,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 @implementation FootsieView
 
 @synthesize targets, score;
+@synthesize bootSound, goalSound, endSound, coinSound, cashSound;
 
 - (NSSet*)_goalTargets
 {
@@ -241,6 +242,8 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Boot", @"aiff"), &bootSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Goal", @"aiff"), &goalSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Crash", @"aiff"), &endSound);
+    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Cash", @"aiff"), &cashSound);
+    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Coin", @"aiff"), &coinSound);
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
@@ -312,6 +315,8 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     AudioServicesDisposeSystemSoundID(bootSound);
     AudioServicesDisposeSystemSoundID(goalSound);
     AudioServicesDisposeSystemSoundID(endSound);
+    AudioServicesDisposeSystemSoundID(cashSound);
+    AudioServicesDisposeSystemSoundID(coinSound);
 
     [pulseTimer invalidate];
     [pulseTimer release];

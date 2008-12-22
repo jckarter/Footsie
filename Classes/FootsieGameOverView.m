@@ -1,6 +1,9 @@
+#import <AudioToolbox/AudioToolbox.h>
 #import "FootsieGameOverView.h"
 #import "FootsieAppDelegate.h"
 #import "FootsieViewController.h"
+#import "FootsieFlowerView.h"
+#import "FootsieView.h"
 #import "misc.h"
 
 static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
@@ -8,12 +11,15 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 @interface FootsieGameOverView ()
 
 - (IBAction)_resetGame:(id)sender;
+- (void)_dropFlower:(NSTimer*)timer;
+- (void)_dropFlowerAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context;
+- (void)_dropFlowersInSuperview:(NSTimer*)timer;
 
 @end
 
 @implementation FootsieGameOverView
 
-@synthesize score;
+@synthesize score, talliedScore;
 
 + (void)initialize
 {
@@ -42,7 +48,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 - (void)setScore:(unsigned)s
 {
     score = s;
-    scoreLabel.text = [NSString stringWithFormat:@"Your Score: %u", score];
+    self.talliedScore = 0;
 
     if (score < 10)
         fortuneLabel.text = [coldFishFortunes randomObject];
@@ -55,6 +61,20 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         addContactButton.alpha = 0.0;
     else
         addContactButton.alpha = 1.0;
+}
+
+- (void)setTalliedScore:(unsigned)s
+{
+    talliedScore = s;
+    scoreLabel.text = talliedScore == 0 && score != 0
+        ? @"Your Score: -"
+        : [NSString stringWithFormat:@"Your Score: %u", talliedScore];
+
+    if (talliedScore == score) {
+        fortuneLabel.alpha = 1.0;
+        AudioServicesPlaySystemSound([(FootsieView*)self.superview cashSound]);
+    } else
+        fortuneLabel.alpha = 0.0;
 }
 
 - (IBAction)_resetGame:(id)sender
@@ -124,6 +144,64 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         [self addSubview:resetButton];
     }
     return self;
+}
+
+- (void)didMoveToSuperview
+{
+    if (self.superview) {
+        [[NSTimer
+            scheduledTimerWithTimeInterval:0.4
+            target:self
+            selector:@selector(_dropFlowersInSuperview:)
+            userInfo:nil
+            repeats:NO
+        ] retain];
+    }
+}
+
+- (void)_dropFlowersInSuperview:(NSTimer*)timer
+{
+    CGFloat timerDelay = 0.15, timerDelayDelta = 0.15;
+    for (UIView *view in [self.superview subviews]) {
+        if ([view isKindOfClass:[FootsieFlowerView class]]) {
+            [[NSTimer
+                scheduledTimerWithTimeInterval:timerDelay
+                target:self
+                selector:@selector(_dropFlower:)
+                userInfo:view
+                repeats:NO
+            ] retain];
+            timerDelay += timerDelayDelta;
+            timerDelayDelta *= 0.95;
+        }
+    }
+}
+
+- (void)_dropFlower:(NSTimer*)timer
+{
+    UIView *flower = [timer userInfo];
+
+    [UIView beginAnimations:nil context:flower];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDidStopSelector:@selector(_dropFlowerAnimationDidStop:finished:context:)];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+
+    flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
+    flower.transform = CGAffineTransformMakeRotation(_rand_between(-0.5, 0.5));
+
+    [UIView commitAnimations];
+
+    [timer release];
+}
+
+- (void)_dropFlowerAnimationDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
+{
+    UIView *flower = (UIView*)context;
+    [flower removeFromSuperview];
+    ++self.talliedScore;
+
+    AudioServicesPlaySystemSound([(FootsieView*)self.superview coinSound]);
 }
 
 @end
