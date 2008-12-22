@@ -1,4 +1,5 @@
 #import "FootsieView.h"
+#import "FootsieArrowView.h"
 #import "FootsiePulseView.h"
 #import "FootsieGameOverView.h"
 #import "FootsieIntroView.h"
@@ -15,7 +16,7 @@
 - (BOOL)_goalsReached;
 - (void)_celebrateGoalsReached;
 - (void)_moveRandomGoalAfterDelay:(NSTimer*)t;
-- (void)_moveRandomGoalInSet:(NSMutableSet*)set;
+- (void)_moveRandomGoalInSet:(NSMutableSet*)set withArrow:(BOOL)arrow;
 - (void)_moveOneRandomGoal;
 - (void)_moveTwoRandomGoals;
 - (UIColor*)_backgroundColor;
@@ -372,6 +373,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     self.backgroundColor = color;
 
     [self _killSubviewsOfClass:[FootsiePulseView class]];
+    [self _killSubviewsOfClass:[FootsieArrowView class]];
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
@@ -441,24 +443,29 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     isCelebrating = NO;
 }
 
-- (void)_moveRandomGoalInSet:(NSMutableSet*)set
+- (void)_moveRandomGoalInSet:(NSMutableSet*)set withArrow:(BOOL)arrow
 {
     FootsieTargetView *from, *to;
     do { from = [set randomObject]; } while ([toGoals containsObject:from]);
     do { to   = [targets randomObject]; } while ([fromGoals containsObject:to] || to.isGoal || _too_close(from, to));
     [self moveGoal:from to:to inSet:set];
+
+    if (arrow)
+        [self addSubview:[[[FootsieArrowView alloc]
+            initFromPoint:from.center toPoint:to.center
+        ] autorelease]];
 }
 
 - (void)_moveOneRandomGoal
 {
     NSMutableSet *set = (isP1 = !isP1) ? p1GoalTargets : p2GoalTargets;
-    [self _moveRandomGoalInSet:set];
+    [self _moveRandomGoalInSet:set withArrow:NO];
 }
 
 - (void)_moveTwoRandomGoals
 {
-    [self _moveRandomGoalInSet:p1GoalTargets];
-    [self _moveRandomGoalInSet:p2GoalTargets];
+    [self _moveRandomGoalInSet:p1GoalTargets withArrow:YES];
+    [self _moveRandomGoalInSet:p2GoalTargets withArrow:YES];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
