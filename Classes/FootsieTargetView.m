@@ -2,7 +2,7 @@
 #import "misc.h"
 
 static NSArray *targetColors;
-static const unsigned DEATH_PULSES = 2;
+static const unsigned DEATH_PULSES = 4;
 
 static void _happy_face(CGContextRef context)
 {

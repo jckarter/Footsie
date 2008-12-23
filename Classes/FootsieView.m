@@ -20,7 +20,7 @@
 - (void)_moveOneRandomGoal;
 - (void)_moveTwoRandomGoals;
 - (UIColor*)_backgroundColor;
-- (NSMutableArray*)_pulseGoals:(NSSet*)set withColor:(UIColor*)color;
+- (NSMutableArray*)_pulseGoals:(NSSet*)set withColor:(UIColor*)color alarm:(BOOL*)alarm;
 
 - (FootsiePulseView*)_pulseFromView:(UIView*)view color:(UIColor*)color direction:(FootsiePulseViewDirection)direction;
 
@@ -122,7 +122,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [view removeFromSuperview];
 }
 
-- (NSMutableArray*)_pulseGoals:(NSSet*)set withColor:(UIColor*)color
+- (NSMutableArray*)_pulseGoals:(NSSet*)set withColor:(UIColor*)color alarm:(BOOL*)alarm
 {
     NSMutableArray *pulses = [NSMutableArray array];
 
@@ -132,6 +132,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
         else {
             if (!goal.isOn) {
                 if (![toGoals containsObject:goal]) {
+                    *alarm = YES;
                     ++goal.deathPulses;
                     if (!isEnded && [goal isDead])
                         [self _endGame:goal];
@@ -145,24 +146,33 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_pulseTimerTick:(NSTimer*)timer
 {
+    BOOL alarm = NO;
+
     if (isCelebrating || isEnded)
         return;
 
     NSMutableArray *pulses = [[NSMutableArray alloc] init];
 
     for (FootsieTargetView *fromGoal in [fromGoals allObjects]) {
-        if (fromGoal.isOn)
+        //if (fromGoal.isOn)
             [pulses addObject:[self _pulseFromView:fromGoal color:_with_alpha(fromGoal.color, 0.7) direction:PulseOut]];
-        else
-            [fromGoals removeObject:fromGoal];
+        //else
+        //    [fromGoals removeObject:fromGoal];
     }
 
-    [pulses addObjectsFromArray:[self _pulseGoals:p1GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.70]
+    [pulses addObjectsFromArray:[self
+        _pulseGoals:p1GoalTargets
+        withColor:[UIColor colorWithRed:1.0 green:0.2 blue:0.5 alpha:0.70]
+        alarm:&alarm
     ]];
-    [pulses addObjectsFromArray:[self _pulseGoals:p2GoalTargets withColor:
-        [UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.70]
+    [pulses addObjectsFromArray:[self
+        _pulseGoals:p2GoalTargets
+        withColor:[UIColor colorWithRed:1.0 green:0.5 blue:0.2 alpha:0.70]
+        alarm:&alarm
     ]];
+
+    if (alarm && !isEnded)
+        AudioServicesPlaySystemSound(alarmSound);
 
     [UIView beginAnimations:nil context:pulses];
 
@@ -244,6 +254,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Crash", @"aiff"), &endSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Cash", @"aiff"), &cashSound);
     AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Coin", @"aiff"), &coinSound);
+    AudioServicesCreateSystemSoundID((CFURLRef)_resource_url(@"Alarm", @"aiff"), &alarmSound);
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
@@ -271,6 +282,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     [toGoals removeAllObjects];
     score = 0;
     turnScoreValue = 1;
+    turnsUntilTandem = _rand_between(8, 13);
     for (FootsieTargetView *target in targets) {
         [target reset];
         if (target.tag == 1)
@@ -317,6 +329,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     AudioServicesDisposeSystemSoundID(endSound);
     AudioServicesDisposeSystemSoundID(cashSound);
     AudioServicesDisposeSystemSoundID(coinSound);
+    AudioServicesDisposeSystemSoundID(alarmSound);
 
     [pulseTimer invalidate];
     [pulseTimer release];
@@ -439,9 +452,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_moveRandomGoalAfterDelay:(NSTimer*)timer
 {
-    if (_rand_between(0.0, 1.0) < 0.1)
+    [fromGoals removeAllObjects];
+    if (--turnsUntilTandem == 0) {
+        turnsUntilTandem = _rand_between(8, 13);
         [self _moveTwoRandomGoals];
-    else
+    } else
         [self _moveOneRandomGoal];
 
     [timer invalidate];

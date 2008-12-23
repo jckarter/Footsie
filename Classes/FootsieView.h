@@ -12,8 +12,8 @@
     BOOL isCelebrating, isPaused, isEnded, isP1;
     NSTimer *pulseTimer;
     IBOutlet UIImageView *splashView;
-    SystemSoundID bootSound, goalSound, endSound, coinSound, cashSound;
-    unsigned score, turnScoreValue;
+    SystemSoundID bootSound, goalSound, endSound, coinSound, cashSound, alarmSound;
+    unsigned score, turnScoreValue, turnsUntilTandem;
 
     FootsieGameOverView *endView;
     FootsieIntroView *pauseView, *startView;

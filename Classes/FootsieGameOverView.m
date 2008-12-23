@@ -181,6 +181,7 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 {
     UIView *flower = [timer userInfo];
 
+#if 1
     if (flower.superview) {
         [UIView beginAnimations:nil context:flower];
         [UIView setAnimationDelegate:self];
@@ -189,13 +190,17 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 
         flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
-        flower.transform = CGAffineTransformMakeRotation(_rand_between(-0.5, 0.5));
+        flower.transform = CGAffineTransformMakeRotation(_rand_between(-1.0, 1.0));
 
         [UIView commitAnimations];
     } else {
         [flower release];
     }
-
+#else
+    [flower release];    
+    ++self.talliedScore;
+    AudioServicesPlaySystemSound([(FootsieView*)self.superview coinSound]);
+#endif
     [timer release];
 }
 
