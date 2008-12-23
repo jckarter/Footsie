@@ -7,6 +7,7 @@
 #import "misc.h"
 
 static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
+static BOOL FLOWER_SHOWER;
 
 @interface FootsieGameOverView ()
 
@@ -23,6 +24,8 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 
 + (void)initialize
 {
+    FLOWER_SHOWER = [[NSUserDefaults standardUserDefaults] boolForKey:@"flowerShower"];
+
     coldFishFortunes = [[NSArray alloc] initWithObjects:
         @"Perhaps it wasn't meant to be.",
         @"Maybe you should just stay friends.",
@@ -181,26 +184,27 @@ static NSArray *coldFishFortunes, *lukeWarmLukeFortunes, *hotTamaleFortunes;
 {
     UIView *flower = [timer userInfo];
 
-#if 1
-    if (flower.superview) {
-        [UIView beginAnimations:nil context:flower];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:0.5];
-        [UIView setAnimationDidStopSelector:@selector(_dropFlowerAnimationDidStop:finished:context:)];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    if (FLOWER_SHOWER) {
+        if (flower.superview) {
+            [UIView beginAnimations:nil context:flower];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationDuration:0.5];
+            [UIView setAnimationDidStopSelector:@selector(_dropFlowerAnimationDidStop:finished:context:)];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 
-        flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
-        flower.transform = CGAffineTransformMakeRotation(_rand_between(-1.0, 1.0));
+            flower.center = CGPointMake(flower.center.x + 320.0, flower.center.y);
+            flower.transform = CGAffineTransformMakeRotation(_rand_between(-1.0, 1.0));
 
-        [UIView commitAnimations];
+            [UIView commitAnimations];
+        } else {
+            [flower release];
+        }
     } else {
-        [flower release];
+        [flower release];    
+        ++self.talliedScore;
+        AudioServicesPlaySystemSound([(FootsieView*)self.superview coinSound]);
     }
-#else
-    [flower release];    
-    ++self.talliedScore;
-    AudioServicesPlaySystemSound([(FootsieView*)self.superview coinSound]);
-#endif
+
     [timer release];
 }
 

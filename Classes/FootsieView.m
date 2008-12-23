@@ -8,6 +8,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+static enum FootsieArrowMode {
+    ArrowsNever = 0,
+    ArrowsTandemOnly = 1,
+    ArrowsAlways = 2
+} ARROW_MODE;
+
 @interface FootsieView ()
 
 - (NSSet*)_goalTargets;
@@ -58,6 +64,11 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 @synthesize targets, score;
 @synthesize bootSound, goalSound, endSound, coinSound, cashSound;
+
++ (void)initialize
+{
+    ARROW_MODE = [[[NSUserDefaults standardUserDefaults] stringForKey:@"arrows"] intValue];
+}
 
 - (NSSet*)_goalTargets
 {
@@ -486,15 +497,15 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     turnScoreValue = 1;
 
     NSMutableSet *set = (isP1 = !isP1) ? p1GoalTargets : p2GoalTargets;
-    [self _moveRandomGoalInSet:set withArrow:NO];
+    [self _moveRandomGoalInSet:set withArrow:(ARROW_MODE >= ArrowsAlways)];
 }
 
 - (void)_moveTwoRandomGoals
 {
     turnScoreValue = 3;
 
-    [self _moveRandomGoalInSet:p1GoalTargets withArrow:YES];
-    [self _moveRandomGoalInSet:p2GoalTargets withArrow:YES];
+    [self _moveRandomGoalInSet:p1GoalTargets withArrow:(ARROW_MODE >= ArrowsTandemOnly)];
+    [self _moveRandomGoalInSet:p2GoalTargets withArrow:(ARROW_MODE >= ArrowsTandemOnly)];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event

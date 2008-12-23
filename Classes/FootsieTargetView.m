@@ -2,7 +2,7 @@
 #import "misc.h"
 
 static NSArray *targetColors;
-static const unsigned DEATH_PULSES = 4;
+static unsigned DEATH_PULSES;
 
 static void _happy_face(CGContextRef context)
 {
@@ -101,6 +101,8 @@ static inline FootsieShape _random_shape(void) { return _shapes[rand() % _num_sh
         _rgba(0xff, 0xf9, 0xdb, 0xff),
         nil
     ];
+
+    DEATH_PULSES = [[[NSUserDefaults standardUserDefaults] stringForKey:@"deathPulses"] intValue] + 1;
 }
 
 - (id)initWithCoder:(NSCoder*)coder
