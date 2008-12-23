@@ -42,6 +42,7 @@
 		D8593C8F0EFF6C9500A7801B /* Coin.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D8593C8D0EFF6C9500A7801B /* Coin.aiff */; };
 		D8593C990EFF741B00A7801B /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D8593C980EFF741B00A7801B /* Credits.html */; };
 		D8593CB00F00740700A7801B /* Alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D8593CAF0F00740700A7801B /* Alarm.aiff */; };
+		D8593CE30F01846A00A7801B /* Icon-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = D8593CE20F01846A00A7801B /* Icon-Settings.png */; };
 		D85E4FEF0EF3403A0082E971 /* Footsie.png in Resources */ = {isa = PBXBuildFile; fileRef = D85E4FEE0EF3403A0082E971 /* Footsie.png */; };
 		D85E50010EF34DAA0082E971 /* FootsieView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E50000EF34DAA0082E971 /* FootsieView.m */; };
 		D8C0E6880EFCB35200D382F5 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C0E6870EFCB35200D382F5 /* Entitlements.plist */; };
@@ -97,6 +98,7 @@
 		D8593C8D0EFF6C9500A7801B /* Coin.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Coin.aiff; sourceTree = "<group>"; };
 		D8593C980EFF741B00A7801B /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		D8593CAF0F00740700A7801B /* Alarm.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Alarm.aiff; sourceTree = "<group>"; };
+		D8593CE20F01846A00A7801B /* Icon-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Settings.png"; sourceTree = "<group>"; };
 		D85E4FEE0EF3403A0082E971 /* Footsie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Footsie.png; sourceTree = "<group>"; };
 		D85E4FFF0EF34DAA0082E971 /* FootsieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootsieView.h; sourceTree = "<group>"; };
 		D85E50000EF34DAA0082E971 /* FootsieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootsieView.m; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8593CE20F01846A00A7801B /* Icon-Settings.png */,
 				D8593CAF0F00740700A7801B /* Alarm.aiff */,
 				D8593C980EFF741B00A7801B /* Credits.html */,
 				D8593C8C0EFF6C9500A7801B /* Cash.aiff */,
@@ -288,6 +291,7 @@
 				D8593C8F0EFF6C9500A7801B /* Coin.aiff in Resources */,
 				D8593C990EFF741B00A7801B /* Credits.html in Resources */,
 				D8593CB00F00740700A7801B /* Alarm.aiff in Resources */,
+				D8593CE30F01846A00A7801B /* Icon-Settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

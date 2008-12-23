@@ -198,7 +198,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 - (void)_splashViewFadeOutDidStop:(NSString*)animationID finished:(BOOL)finished context:(void*)context
 {
     [splashView release];
-    [self _dropInInfoView:startView];
+    //[self _dropInInfoView:startView];
 }
 
 - (void)addGoal:(FootsieTargetView*)t toSet:(NSMutableSet*)set
@@ -263,12 +263,16 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
     splashView.alpha = 0.0;
     [UIView commitAnimations];
 
-    activeInfoView = nil;
     endView = [[FootsieGameOverView alloc] init];
     pauseView = [[FootsieIntroView alloc] initWithBackground:@"Paused" instructions:NO];
     startView = [[FootsieIntroView alloc] initWithBackground:@"Intro"  instructions:YES];
 
     [self _resetGame];
+
+    activeInfoView = startView;
+    startView.center = self.center;
+    startView.transform = CGAffineTransformMake(0.0, -1.0, 1.0, 0.0, 0.0, 0.0);
+    [self addSubview:startView];
 }
 
 - (void)_resetGame
