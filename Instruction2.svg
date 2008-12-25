@@ -15,7 +15,7 @@
    inkscape:version="0.46"
    sodipodi:docname="Instruction2.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/Users/joe/Documents/Code/Footsie/Instruction1.png"
+   inkscape:export-filename="/Users/joe/Documents/Code/Footsie/Instruction2.png"
    inkscape:export-xdpi="54.779999"
    inkscape:export-ydpi="54.779999">
   <defs
@@ -274,5 +274,10 @@
        style="fill:#ffd3c2;fill-opacity:0.54509807;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 160.68048,-362.71438 L 162.09262,-371.89482 L 169.55419,-363.13997 L 160.68048,-362.71438 z"
        id="path3506" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.65499996999999999;stroke-miterlimit:4;stroke-dasharray:8,4;stroke-dashoffset:0"
+       d="M 176.19048,-377.79655 C 197.46032,-376.20925 223.1746,-392.39972 228.57143,-405.09813"
+       id="path2631"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
