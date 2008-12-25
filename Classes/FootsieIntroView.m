@@ -23,7 +23,7 @@
         UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
         UIFont *plainFont = [UIFont systemFontOfSize:13];
         UILabel *introLabel = [[[UILabel alloc] init] autorelease];
-        introLabel.frame = CGRectMake(14, 47 + (instructions ? 0 : 13), 270, 15);
+        introLabel.frame = CGRectMake(14, 47 + (instructions ? -1 : 13), 270, 15);
         introLabel.font = plainFont;
         introLabel.text = @"Touch and hold all of the angry faces to start.";
         introLabel.textColor = [UIColor whiteColor];
@@ -38,7 +38,7 @@
 
         if (instructions) {
             UIButton *instructionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            instructionsButton.frame = CGRectMake(85, 70, 130, 25);
+            instructionsButton.frame = CGRectMake(85, 67, 130, 29);
             instructionsButton.font = boldFont;
             [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
             [instructionsButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(showInstructions:) forControlEvents:UIControlEventTouchUpInside];

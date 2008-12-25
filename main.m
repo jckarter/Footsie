@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
         @"3", @"deathPulses",
-        @"1", @"arrows",
+        @"2", @"arrows",
         [NSNumber numberWithBool:YES], @"flowerShower",
         nil
     ]];

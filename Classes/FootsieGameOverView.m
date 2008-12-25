@@ -103,7 +103,7 @@ static BOOL FLOWER_SHOWER;
         gameOverBackground.backgroundColor = [UIColor clearColor];
 
         scoreLabel = [[[UILabel alloc] init] autorelease];
-        scoreLabel.frame = CGRectMake(0, 58, 300, 25);
+        scoreLabel.frame = CGRectMake(0, 55, 300, 25);
         scoreLabel.font = boldFont;
         scoreLabel.textColor = [UIColor whiteColor];
         scoreLabel.textAlignment = UITextAlignmentCenter;
@@ -111,7 +111,7 @@ static BOOL FLOWER_SHOWER;
         scoreLabel.backgroundColor = [UIColor clearColor];
 
         fortuneLabel = [[[UILabel alloc] init] autorelease];
-        fortuneLabel.frame = CGRectMake(10, 85, 280, 50);
+        fortuneLabel.frame = CGRectMake(10, 83, 280, 50);
         fortuneLabel.font = plainFont;
         fortuneLabel.textColor = [UIColor whiteColor];
         fortuneLabel.textAlignment = UITextAlignmentCenter;
@@ -128,13 +128,13 @@ static BOOL FLOWER_SHOWER;
         [addContactButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(addContact:) forControlEvents:UIControlEventTouchUpInside];
 
         UIButton *instructionsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        instructionsButton.frame = CGRectMake(44, 144, 110, 25);
+        instructionsButton.frame = CGRectMake(44, 140, 110, 29);
         instructionsButton.font = boldFont;
         [instructionsButton setTitle:@"Instructions" forState:UIControlStateNormal];
         [instructionsButton addTarget:[[UIApplication sharedApplication] delegate] action:@selector(showInstructions:) forControlEvents:UIControlEventTouchUpInside];
 
         UIButton *resetButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        resetButton.frame = CGRectMake(160, 144, 110, 25);
+        resetButton.frame = CGRectMake(160, 140, 110, 29);
         resetButton.font = boldFont;
         [resetButton setTitle:@"Play Again" forState:UIControlStateNormal];
         [resetButton addTarget:self action:@selector(_resetGame:) forControlEvents:UIControlEventTouchUpInside];
