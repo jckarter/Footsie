@@ -8,22 +8,21 @@ static inline CGFloat fmax3(CGFloat a, CGFloat b, CGFloat c) { return fmax(fmax(
 
 static CGFloat _factor(CGPoint pt, CGPoint distance, NSSet *targets)
 {
-    CGFloat length = 50.0 / sqrt(distance.x*distance.x + distance.y*distance.y);
+    CGFloat length = 72.0 / sqrt(distance.x*distance.x + distance.y*distance.y);
     CGAffineTransform inv = CGAffineTransformMake(distance.x, distance.y, distance.y, -distance.x, pt.x, pt.y);
     CGAffineTransform t = CGAffineTransformInvert(inv);
 
-    CGFloat f = 0.5;
+    CGFloat f = 0.1;
 
     for (FootsieTargetView *v in targets) {
         CGPoint p = CGPointApplyAffineTransform(v.center, t);
         if (p.x < 0.05 || p.x > 0.95)
             continue;
         CGFloat x = p.x > 0.5 ? 1.0 - p.x : p.x;
-        CGFloat ymin = fabs(p.y - length)/x, ymax = fabs(p.y + length)/x;
+        CGFloat ymin = (p.y - length)/x, ymax = (p.y + length)/x;
         if (f > ymin && f < ymax)
             f = f - ymin < ymax - f ? ymin : ymax;
     }
-    NSLog(@"%f", f);
     return f;
 }
 
