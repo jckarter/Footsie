@@ -5,6 +5,6 @@
     CGPoint from, to, control;
 }
 
-- (id)initFromPoint:(CGPoint)from toPoint:(CGPoint)to;
+- (id)initFromPoint:(CGPoint)from toPoint:(CGPoint)to aroundTargets:(NSSet*)targets;
 
 @end

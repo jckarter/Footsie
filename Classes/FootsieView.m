@@ -488,7 +488,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
     if (arrow)
         [self addSubview:[[[FootsieArrowView alloc]
-            initFromPoint:from.center toPoint:to.center
+            initFromPoint:from.center toPoint:to.center aroundTargets:[self _goalTargets]
         ] autorelease]];
 }
 
