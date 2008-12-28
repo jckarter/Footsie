@@ -30,7 +30,8 @@ static inline unsigned _random_petal_count()
 - (id)initAtPoint:(CGPoint)point forScore:(unsigned)score
 {
     if (self = [super init]) {
-        radius = _rand_between(10.0 + score, 15.0 + score);
+        CGFloat factor = log(score + 1) + 1.0;
+        radius = _rand_between(10.0 + factor, 15.0 + factor);
         CGFloat slush = radius + 1.0;
         self.frame = CGRectMake(point.x - slush, point.y - slush, slush*2, slush*2);
         self.userInteractionEnabled = NO;

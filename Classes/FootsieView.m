@@ -310,7 +310,7 @@ static BOOL _too_close(FootsieTargetView *a, FootsieTargetView *b)
 
 - (void)_pauseGame
 {
-    if (isPaused)
+    if (isPaused || isEnded)
         return;
 
     isPaused = YES;
